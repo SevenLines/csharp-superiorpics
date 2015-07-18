@@ -3,16 +3,19 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 using System.Threading.Tasks;
+using log4net;
 
 namespace superiorpics
 {
 	public class RequestHelper
 	{
+		public static ILog log = LogManager.GetLogger(typeof(RequestHelper));
+
 		public RequestHelper ()
 		{
 		}
 
-		public static string getRequest(string url) 
+		public static string getRequest (string url)
 		{
 			var request = HttpWebRequest.Create (url);
 			var response = (HttpWebResponse)request.GetResponse ();
@@ -21,28 +24,41 @@ namespace superiorpics
 			var stream = response.GetResponseStream ();
 			var encoding = System.Text.Encoding.GetEncoding ("utf-8");
 
-			var streamReader = new StreamReader(stream, encoding);
+			var streamReader = new StreamReader (stream, encoding);
 
-			string data = streamReader.ReadToEnd();
+			string data = streamReader.ReadToEnd ();
 			return data;
 		}
 
-		public static async void getRequestAsync(string url, Action<string> callback) 
+		public static async void getRequestAsync (string url, Action<string> done, Action<WebException> fail)
 		{
+			log.Info (url);
+
 			var request = HttpWebRequest.Create (url);
-			var response = (HttpWebResponse) await request.GetResponseAsync ();
-			System.Console.Write (response.StatusCode);
+			HttpWebResponse response = null;
+			try {
+				response = (HttpWebResponse)await request.GetResponseAsync ();
+			} catch (WebException ex) {
+				if (fail!=null) {
+					fail (ex);
+				}
+			}
 
-			var stream = response.GetResponseStream ();
-			var encoding = System.Text.Encoding.GetEncoding ("utf-8");
+			if (response!=null) {
+				log.Info (response.StatusCode);
 
-			var streamReader = new StreamReader(stream, encoding);
+				var stream = response.GetResponseStream ();
+				var encoding = System.Text.Encoding.GetEncoding ("utf-8");
 
-			string data = streamReader.ReadToEnd();
-			callback (data);
+				var streamReader = new StreamReader (stream, encoding);
+
+				string data = streamReader.ReadToEnd ();
+				if (done != null)
+					done (data);
+			}
 		}
 
-		public static async void getImage(string url, Action<byte[]> callback)
+		public static async void getImage (string url, Action<byte[]> callback)
 		{
 			var client = new HttpClient ();
 			byte[] data = await client.GetByteArrayAsync (url);

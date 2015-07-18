@@ -1,7 +1,7 @@
 ﻿using System;
 using Gtk;
 
-namespace superiorpics2
+namespace superiorpics
 {
 	class MainClass
 	{

@@ -44,13 +44,18 @@ namespace superiorpics
 
 		public virtual List<ForumItem> get_forums (HtmlNode root)
 		{
-			return get_items_nodes (root).Select ((node) => {
-				return new ForumItem {
-					url = get_href (node),
-					title = get_title (node),
-					thumb = get_thumb (node),
-				};
-			}).ToList();
+			var nodes = get_items_nodes (root);
+			if (nodes != null) {
+				return nodes.Select ((node) => {
+					return new ForumItem {
+						url = get_href (node),
+						title = get_title (node),
+						thumb = get_thumb (node),
+					};
+				}).ToList ();
+			} else {
+				return new List<ForumItem> ();
+			}
 		}
 
 

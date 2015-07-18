@@ -42,6 +42,7 @@
               <widget class="Gtk.Entry" id="edtQuery">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
+                <property name="Text" translatable="yes">Kate  Upton  </property>
                 <property name="IsEditable">True</property>
                 <property name="InvisibleChar">●</property>
               </widget>

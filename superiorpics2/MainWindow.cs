@@ -2,10 +2,12 @@
 using Gtk;
 using HtmlAgilityPack;
 using superiorpics;
+using System.Text.RegularExpressions;
+using System.Net;
 
 public partial class MainWindow: Gtk.Window
 {
-	Source source = new SuperiorpicsSource();
+	Source source = new SuperiorpicsSource ();
 
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
@@ -18,21 +20,31 @@ public partial class MainWindow: Gtk.Window
 		a.RetVal = true;
 	}
 
+	protected string Query ()
+	{
+		var query = edtQuery.Text;
+		query = query.Trim ();
+		query = Regex.Replace (query, @"\s+", "_");
+		return query;
+	}
+
 	protected void OnBtnFindClicked (object sender, EventArgs e)
 	{
-		RequestHelper.getRequestAsync (
-			@"http://www.superiorpics.com/c/Alison_Brie/",
-			(data) => {
-				var doc = new HtmlDocument();
-				doc.LoadHtml(data);
-				var root = doc.DocumentNode;
+		var url = String.Format (@"http://www.superiorpics.com/c/{0}/", Query ());
 
-				var forums = source.get_forums(root);
-				foreach(var forum in forums) {
-					Console.WriteLine(forum.thumb);
-				}
+		RequestHelper.getRequestAsync (url, (data) => {
+			var doc = new HtmlDocument ();
+			doc.LoadHtml (data);
+			var root = doc.DocumentNode;
+
+			var forums = source.get_forums (root);
+			foreach (var forum in forums) {
+				Console.WriteLine (forum.thumb);
 			}
-		);
+		}, (ex) => {
+			var response = (HttpWebResponse)ex.Response;
+			Console.WriteLine (response.StatusCode);
+		});
 		Console.WriteLine ("out");
 	}
 }

@@ -42,6 +42,7 @@ public partial class MainWindow
 		this.edtQuery = new global::Gtk.Entry ();
 		this.edtQuery.CanFocus = true;
 		this.edtQuery.Name = "edtQuery";
+		this.edtQuery.Text = global::Mono.Unix.Catalog.GetString ("Kate  Upton  ");
 		this.edtQuery.IsEditable = true;
 		this.edtQuery.InvisibleChar = '●';
 		this.hbox1.Add (this.edtQuery);
