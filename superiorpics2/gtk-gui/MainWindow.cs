@@ -10,6 +10,10 @@ public partial class MainWindow
 	private global::Gtk.Button btnFind;
 	
 	private global::Gtk.Entry edtQuery;
+	
+	private global::Gtk.ScrolledWindow scrolledwindow2;
+	
+	private global::superiorpics.ResponsiveGrid grid;
 
 	protected virtual void Build ()
 	{
@@ -53,6 +57,23 @@ public partial class MainWindow
 		w3.Position = 0;
 		w3.Expand = false;
 		w3.Fill = false;
+		// Container child vbox1.Gtk.Box+BoxChild
+		this.scrolledwindow2 = new global::Gtk.ScrolledWindow ();
+		this.scrolledwindow2.CanFocus = true;
+		this.scrolledwindow2.Name = "scrolledwindow2";
+		this.scrolledwindow2.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child scrolledwindow2.Gtk.Container+ContainerChild
+		global::Gtk.Viewport w4 = new global::Gtk.Viewport ();
+		w4.ShadowType = ((global::Gtk.ShadowType)(0));
+		// Container child GtkViewport.Gtk.Container+ContainerChild
+		this.grid = new global::superiorpics.ResponsiveGrid ();
+		this.grid.Events = ((global::Gdk.EventMask)(256));
+		this.grid.Name = "grid";
+		w4.Add (this.grid);
+		this.scrolledwindow2.Add (w4);
+		this.vbox1.Add (this.scrolledwindow2);
+		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.scrolledwindow2]));
+		w7.Position = 1;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();

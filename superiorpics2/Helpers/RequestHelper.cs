@@ -9,7 +9,7 @@ namespace superiorpics
 {
 	public class RequestHelper
 	{
-		public static ILog log = LogManager.GetLogger(typeof(RequestHelper));
+		public static ILog log = LogManager.GetLogger (typeof(RequestHelper));
 
 		public RequestHelper ()
 		{
@@ -39,12 +39,12 @@ namespace superiorpics
 			try {
 				response = (HttpWebResponse)await request.GetResponseAsync ();
 			} catch (WebException ex) {
-				if (fail!=null) {
+				if (fail != null) {
 					fail (ex);
 				}
 			}
 
-			if (response!=null) {
+			if (response != null) {
 				log.Info (response.StatusCode);
 
 				var stream = response.GetResponseStream ();
@@ -58,10 +58,17 @@ namespace superiorpics
 			}
 		}
 
-		public static async void getImage (string url, Action<byte[]> callback)
+		public static async void getImage (string url, Action<byte[]> callback = null, Action<WebException> fail = null)
 		{
 			var client = new HttpClient ();
-			byte[] data = await client.GetByteArrayAsync (url);
+			byte[] data = null;
+			try {
+				data = await client.GetByteArrayAsync (url);
+			} catch (WebException ex) {
+				if (fail != null) {
+					fail (ex);
+				}
+			}
 			callback (data);
 		}
 	}

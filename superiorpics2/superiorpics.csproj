@@ -73,6 +73,7 @@
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\loading-icon.gif" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -84,12 +85,18 @@
     <Compile Include="Sources\SuperiorpicsSource.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Tests\NUnitRequestHelpers.cs" />
+    <Compile Include="Components\ImageLoader.cs" />
+    <Compile Include="gtk-gui\superiorpics.ImageLoader.cs" />
+    <Compile Include="Components\ResponsiveGrid.cs" />
+    <Compile Include="gtk-gui\superiorpics.ResponsiveGrid.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Sources\" />
     <Folder Include="Helpers\" />
     <Folder Include="Tests\" />
+    <Folder Include="Components\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
