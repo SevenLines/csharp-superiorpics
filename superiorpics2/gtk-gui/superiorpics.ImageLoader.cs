@@ -4,12 +4,41 @@ namespace superiorpics
 {
 	public partial class ImageLoader
 	{
+		private global::Gtk.Frame frame5;
+		
+		private global::Gtk.Alignment GtkAlignment;
+		
+		private global::Gtk.Image image;
+		
+		private global::Gtk.Label label;
+
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget superiorpics.ImageLoader
 			global::Stetic.BinContainer.Attach (this);
 			this.Name = "superiorpics.ImageLoader";
+			// Container child superiorpics.ImageLoader.Gtk.Container+ContainerChild
+			this.frame5 = new global::Gtk.Frame ();
+			this.frame5.Name = "frame5";
+			this.frame5.ShadowType = ((global::Gtk.ShadowType)(0));
+			// Container child frame5.Gtk.Container+ContainerChild
+			this.GtkAlignment = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
+			this.GtkAlignment.Name = "GtkAlignment";
+			this.GtkAlignment.LeftPadding = ((uint)(3));
+			this.GtkAlignment.RightPadding = ((uint)(3));
+			this.GtkAlignment.BorderWidth = ((uint)(6));
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			this.image = new global::Gtk.Image ();
+			this.image.Name = "image";
+			this.GtkAlignment.Add (this.image);
+			this.frame5.Add (this.GtkAlignment);
+			this.label = new global::Gtk.Label ();
+			this.label.Name = "label";
+			this.label.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>GtkFrame</b>");
+			this.label.UseMarkup = true;
+			this.frame5.LabelWidget = this.label;
+			this.Add (this.frame5);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}

@@ -5,15 +5,29 @@ public partial class MainWindow
 {
 	private global::Gtk.VBox vbox1;
 	
+	private global::Gtk.Notebook notebook1;
+	
+	private global::Gtk.VBox vbox4;
+	
 	private global::Gtk.HBox hbox1;
 	
-	private global::Gtk.Button btnFind;
-	
 	private global::Gtk.Entry edtQuery;
+	
+	private global::Gtk.Button btnFind;
 	
 	private global::Gtk.ScrolledWindow scrolledwindow2;
 	
 	private global::superiorpics.ResponsiveGrid grid;
+	
+	private global::Gtk.Label label3;
+	
+	private global::Gtk.HBox hBottom;
+	
+	private global::Gtk.Button btnPrevious;
+	
+	private global::Gtk.ComboBox cmbPage;
+	
+	private global::Gtk.Button btnNext;
 
 	protected virtual void Build ()
 	{
@@ -22,14 +36,34 @@ public partial class MainWindow
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+		this.BorderWidth = ((uint)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox1 = new global::Gtk.VBox ();
 		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
+		this.notebook1 = new global::Gtk.Notebook ();
+		this.notebook1.CanFocus = true;
+		this.notebook1.Name = "notebook1";
+		this.notebook1.CurrentPage = 0;
+		// Container child notebook1.Gtk.Notebook+NotebookChild
+		this.vbox4 = new global::Gtk.VBox ();
+		this.vbox4.Name = "vbox4";
+		this.vbox4.Spacing = 6;
+		// Container child vbox4.Gtk.Box+BoxChild
 		this.hbox1 = new global::Gtk.HBox ();
 		this.hbox1.Name = "hbox1";
 		this.hbox1.Spacing = 6;
+		// Container child hbox1.Gtk.Box+BoxChild
+		this.edtQuery = new global::Gtk.Entry ();
+		this.edtQuery.CanFocus = true;
+		this.edtQuery.Name = "edtQuery";
+		this.edtQuery.Text = global::Mono.Unix.Catalog.GetString ("Alison Brie");
+		this.edtQuery.IsEditable = true;
+		this.edtQuery.InvisibleChar = '●';
+		this.hbox1.Add (this.edtQuery);
+		global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.edtQuery]));
+		w1.Position = 0;
 		// Container child hbox1.Gtk.Box+BoxChild
 		this.btnFind = new global::Gtk.Button ();
 		this.btnFind.CanFocus = true;
@@ -38,26 +72,16 @@ public partial class MainWindow
 		this.btnFind.UseUnderline = true;
 		this.btnFind.Label = "gtk-find";
 		this.hbox1.Add (this.btnFind);
-		global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.btnFind]));
-		w1.Position = 0;
-		w1.Expand = false;
-		w1.Fill = false;
-		// Container child hbox1.Gtk.Box+BoxChild
-		this.edtQuery = new global::Gtk.Entry ();
-		this.edtQuery.CanFocus = true;
-		this.edtQuery.Name = "edtQuery";
-		this.edtQuery.Text = global::Mono.Unix.Catalog.GetString ("Kate  Upton  ");
-		this.edtQuery.IsEditable = true;
-		this.edtQuery.InvisibleChar = '●';
-		this.hbox1.Add (this.edtQuery);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.edtQuery]));
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.btnFind]));
 		w2.Position = 1;
-		this.vbox1.Add (this.hbox1);
-		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox1]));
+		w2.Expand = false;
+		w2.Fill = false;
+		this.vbox4.Add (this.hbox1);
+		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.hbox1]));
 		w3.Position = 0;
 		w3.Expand = false;
 		w3.Fill = false;
-		// Container child vbox1.Gtk.Box+BoxChild
+		// Container child vbox4.Gtk.Box+BoxChild
 		this.scrolledwindow2 = new global::Gtk.ScrolledWindow ();
 		this.scrolledwindow2.CanFocus = true;
 		this.scrolledwindow2.Name = "scrolledwindow2";
@@ -71,9 +95,57 @@ public partial class MainWindow
 		this.grid.Name = "grid";
 		w4.Add (this.grid);
 		this.scrolledwindow2.Add (w4);
-		this.vbox1.Add (this.scrolledwindow2);
-		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.scrolledwindow2]));
+		this.vbox4.Add (this.scrolledwindow2);
+		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.scrolledwindow2]));
 		w7.Position = 1;
+		this.notebook1.Add (this.vbox4);
+		// Notebook tab
+		this.label3 = new global::Gtk.Label ();
+		this.label3.Name = "label3";
+		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Search");
+		this.notebook1.SetTabLabel (this.vbox4, this.label3);
+		this.label3.ShowAll ();
+		this.vbox1.Add (this.notebook1);
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook1]));
+		w9.Position = 0;
+		// Container child vbox1.Gtk.Box+BoxChild
+		this.hBottom = new global::Gtk.HBox ();
+		this.hBottom.Name = "hBottom";
+		this.hBottom.Spacing = 6;
+		// Container child hBottom.Gtk.Box+BoxChild
+		this.btnPrevious = new global::Gtk.Button ();
+		this.btnPrevious.CanFocus = true;
+		this.btnPrevious.Name = "btnPrevious";
+		this.btnPrevious.UseUnderline = true;
+		this.btnPrevious.Label = global::Mono.Unix.Catalog.GetString ("<<");
+		this.hBottom.Add (this.btnPrevious);
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hBottom [this.btnPrevious]));
+		w10.Position = 0;
+		w10.Expand = false;
+		w10.Fill = false;
+		// Container child hBottom.Gtk.Box+BoxChild
+		this.cmbPage = new global::Gtk.ComboBox ();
+		this.cmbPage.Name = "cmbPage";
+		this.cmbPage.AddTearoffs = true;
+		this.hBottom.Add (this.cmbPage);
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hBottom [this.cmbPage]));
+		w11.Position = 1;
+		// Container child hBottom.Gtk.Box+BoxChild
+		this.btnNext = new global::Gtk.Button ();
+		this.btnNext.CanFocus = true;
+		this.btnNext.Name = "btnNext";
+		this.btnNext.UseUnderline = true;
+		this.btnNext.Label = global::Mono.Unix.Catalog.GetString (">>");
+		this.hBottom.Add (this.btnNext);
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hBottom [this.btnNext]));
+		w12.Position = 2;
+		w12.Expand = false;
+		w12.Fill = false;
+		this.vbox1.Add (this.hBottom);
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hBottom]));
+		w13.Position = 1;
+		w13.Expand = false;
+		w13.Fill = false;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -83,5 +155,6 @@ public partial class MainWindow
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.btnFind.Clicked += new global::System.EventHandler (this.OnBtnFindClicked);
+		this.cmbPage.Changed += new global::System.EventHandler (this.OnCmbPageChanged);
 	}
 }

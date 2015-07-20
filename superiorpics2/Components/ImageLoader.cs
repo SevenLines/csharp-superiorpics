@@ -7,7 +7,7 @@ namespace superiorpics
 	[System.ComponentModel.ToolboxItem (true)]
 	public partial class ImageLoader : Gtk.Bin
 	{
-		private Gtk.Image image = new Gtk.Image ();
+//		private Gtk.Image image = new Gtk.Image ();
 		private string url = null;
 
 
@@ -17,9 +17,9 @@ namespace superiorpics
 		public ImageLoader ()
 		{
 			this.Build ();
-			this.Add (image);
-			image.Show ();
-			this.SetSizeRequest (100, 100);
+//			this.Add (image);
+//			image.Show ();
+			this.SetSizeRequest (150, 150);
 		}
 
 		private void StartLoadAnimation ()
@@ -32,6 +32,16 @@ namespace superiorpics
 			this.image.PixbufAnimation = null;
 			if (data != null) {
 				this.image.Pixbuf = new Pixbuf(data);
+			}
+		}
+
+
+		public string Label {
+			get {
+				return this.label.LabelProp;
+			}
+			set {
+				this.label.LabelProp = String.Format("<b>{0}</b>", value);
 			}
 		}
 

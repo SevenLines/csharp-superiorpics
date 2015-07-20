@@ -33,6 +33,7 @@ namespace superiorpics
 		public static async void getRequestAsync (string url, Action<string> done, Action<WebException> fail)
 		{
 			log.Info (url);
+			Console.WriteLine (url);
 
 			var request = HttpWebRequest.Create (url);
 			HttpWebResponse response = null;
@@ -58,16 +59,18 @@ namespace superiorpics
 			}
 		}
 
-		public static async void getImage (string url, Action<byte[]> callback = null, Action<WebException> fail = null)
+		public static async void getImage (string url, Action<byte[]> callback = null)
 		{
 			var client = new HttpClient ();
 			byte[] data = null;
 			try {
 				data = await client.GetByteArrayAsync (url);
 			} catch (WebException ex) {
-				if (fail != null) {
-					fail (ex);
-				}
+				
+			} catch ( HttpRequestException ex) {
+				
+			} catch (TaskCanceledException ex) {
+
 			}
 			callback (data);
 		}
