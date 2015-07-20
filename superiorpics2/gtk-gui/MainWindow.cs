@@ -5,7 +5,7 @@ public partial class MainWindow
 {
 	private global::Gtk.VBox vbox1;
 	
-	private global::Gtk.Notebook notebook1;
+	private global::Gtk.Notebook notebook;
 	
 	private global::Gtk.VBox vbox4;
 	
@@ -15,19 +15,9 @@ public partial class MainWindow
 	
 	private global::Gtk.Button btnFind;
 	
-	private global::Gtk.ScrolledWindow scrolledwindow2;
-	
-	private global::superiorpics.ResponsiveGrid grid;
+	private global::superiorpics.Gallery forumsGallery;
 	
 	private global::Gtk.Label label3;
-	
-	private global::Gtk.HBox hBottom;
-	
-	private global::Gtk.Button btnPrevious;
-	
-	private global::Gtk.ComboBox cmbPage;
-	
-	private global::Gtk.Button btnNext;
 
 	protected virtual void Build ()
 	{
@@ -42,11 +32,11 @@ public partial class MainWindow
 		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
-		this.notebook1 = new global::Gtk.Notebook ();
-		this.notebook1.CanFocus = true;
-		this.notebook1.Name = "notebook1";
-		this.notebook1.CurrentPage = 0;
-		// Container child notebook1.Gtk.Notebook+NotebookChild
+		this.notebook = new global::Gtk.Notebook ();
+		this.notebook.CanFocus = true;
+		this.notebook.Name = "notebook";
+		this.notebook.CurrentPage = 0;
+		// Container child notebook.Gtk.Notebook+NotebookChild
 		this.vbox4 = new global::Gtk.VBox ();
 		this.vbox4.Name = "vbox4";
 		this.vbox4.Spacing = 6;
@@ -82,79 +72,30 @@ public partial class MainWindow
 		w3.Expand = false;
 		w3.Fill = false;
 		// Container child vbox4.Gtk.Box+BoxChild
-		this.scrolledwindow2 = new global::Gtk.ScrolledWindow ();
-		this.scrolledwindow2.CanFocus = true;
-		this.scrolledwindow2.Name = "scrolledwindow2";
-		this.scrolledwindow2.ShadowType = ((global::Gtk.ShadowType)(1));
-		// Container child scrolledwindow2.Gtk.Container+ContainerChild
-		global::Gtk.Viewport w4 = new global::Gtk.Viewport ();
-		w4.ShadowType = ((global::Gtk.ShadowType)(0));
-		// Container child GtkViewport.Gtk.Container+ContainerChild
-		this.grid = new global::superiorpics.ResponsiveGrid ();
-		this.grid.Events = ((global::Gdk.EventMask)(256));
-		this.grid.Name = "grid";
-		w4.Add (this.grid);
-		this.scrolledwindow2.Add (w4);
-		this.vbox4.Add (this.scrolledwindow2);
-		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.scrolledwindow2]));
-		w7.Position = 1;
-		this.notebook1.Add (this.vbox4);
+		this.forumsGallery = new global::superiorpics.Gallery ();
+		this.forumsGallery.Events = ((global::Gdk.EventMask)(256));
+		this.forumsGallery.Name = "forumsGallery";
+		this.vbox4.Add (this.forumsGallery);
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.forumsGallery]));
+		w4.Position = 1;
+		this.notebook.Add (this.vbox4);
 		// Notebook tab
 		this.label3 = new global::Gtk.Label ();
 		this.label3.Name = "label3";
 		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Search");
-		this.notebook1.SetTabLabel (this.vbox4, this.label3);
+		this.notebook.SetTabLabel (this.vbox4, this.label3);
 		this.label3.ShowAll ();
-		this.vbox1.Add (this.notebook1);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook1]));
-		w9.Position = 0;
-		// Container child vbox1.Gtk.Box+BoxChild
-		this.hBottom = new global::Gtk.HBox ();
-		this.hBottom.Name = "hBottom";
-		this.hBottom.Spacing = 6;
-		// Container child hBottom.Gtk.Box+BoxChild
-		this.btnPrevious = new global::Gtk.Button ();
-		this.btnPrevious.CanFocus = true;
-		this.btnPrevious.Name = "btnPrevious";
-		this.btnPrevious.UseUnderline = true;
-		this.btnPrevious.Label = global::Mono.Unix.Catalog.GetString ("<<");
-		this.hBottom.Add (this.btnPrevious);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hBottom [this.btnPrevious]));
-		w10.Position = 0;
-		w10.Expand = false;
-		w10.Fill = false;
-		// Container child hBottom.Gtk.Box+BoxChild
-		this.cmbPage = new global::Gtk.ComboBox ();
-		this.cmbPage.Name = "cmbPage";
-		this.cmbPage.AddTearoffs = true;
-		this.hBottom.Add (this.cmbPage);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hBottom [this.cmbPage]));
-		w11.Position = 1;
-		// Container child hBottom.Gtk.Box+BoxChild
-		this.btnNext = new global::Gtk.Button ();
-		this.btnNext.CanFocus = true;
-		this.btnNext.Name = "btnNext";
-		this.btnNext.UseUnderline = true;
-		this.btnNext.Label = global::Mono.Unix.Catalog.GetString (">>");
-		this.hBottom.Add (this.btnNext);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hBottom [this.btnNext]));
-		w12.Position = 2;
-		w12.Expand = false;
-		w12.Fill = false;
-		this.vbox1.Add (this.hBottom);
-		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hBottom]));
-		w13.Position = 1;
-		w13.Expand = false;
-		w13.Fill = false;
+		this.vbox1.Add (this.notebook);
+		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
+		w6.Position = 0;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 400;
-		this.DefaultHeight = 300;
+		this.DefaultWidth = 423;
+		this.DefaultHeight = 505;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.btnFind.Clicked += new global::System.EventHandler (this.OnBtnFindClicked);
-		this.cmbPage.Changed += new global::System.EventHandler (this.OnCmbPageChanged);
 	}
 }

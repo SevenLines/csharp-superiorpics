@@ -15,13 +15,9 @@ public partial class MainWindow: Gtk.Window
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
-
-		var renderer = new CellRendererText ();
-		cmbPage.PackStart (renderer, false);
-		cmbPage.AddAttribute (renderer, "text", 1);
-
-		cmbPage.WrapWidth = 10;
-		cmbPage.Model = pagesModel;
+		forumsGallery.PagesModel = pagesModel;
+		forumsGallery.OnItemClicked = OpenLink;
+		forumsGallery.OnPageChanged = SetPageUrl;
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -41,11 +37,11 @@ public partial class MainWindow: Gtk.Window
 
 	private bool loading = false;
 
-	public void getUrl (string url, Action<string> done=null)
+	public void getUrl (string url, Action<string> done = null)
 	{
 		RequestHelper.getRequestAsync (url, (data) => {
 			Gtk.Application.Invoke (delegate {
-				if (done!=null) {
+				if (done != null) {
 					done (data);
 				}
 			});
@@ -54,6 +50,12 @@ public partial class MainWindow: Gtk.Window
 			Console.WriteLine (response.StatusCode);
 			loading = false;
 		});
+	}
+
+
+	protected void OpenLink (ForumItem item)
+	{
+		Console.WriteLine (item);
 	}
 
 	protected void OnBtnFindClicked (object sender, EventArgs e)
@@ -76,39 +78,24 @@ public partial class MainWindow: Gtk.Window
 			foreach (var page in pages) {
 				pagesModel.AppendValues (page.url, page.page.ToString ());
 			}
+			forumsGallery.SetForums (forums);
 
-			grid.RemoveAll ();
-			foreach (var forum in forums) {
-				var image = new ImageLoader ();
-				image.Url = forum.thumb;
-				image.Label = forum.title;
-				grid.AddWidget (image);
-				image.Show ();
-			}
-			grid.Rebuild ();
 			loading = false;
 		});
 	}
 
-	protected void OnCmbPageChanged (object sender, EventArgs e)
+	protected void SetPageUrl (int page, string pageText)
 	{
-		if (cmbPage.ActiveText != null) {
-			getUrl (cmbPage.ActiveText, (data) => {
+		if (pageText != null) {
+			getUrl (pageText, (data) => {
 				var doc = new HtmlDocument ();
 				doc.LoadHtml (data);
 				var root = doc.DocumentNode;
 
 				var forums = source.get_forums (root);
 
-				grid.RemoveAll ();
-				foreach (var forum in forums) {
-					var image = new ImageLoader ();
-					image.Url = forum.thumb;
-					image.Label = forum.title;
-					grid.AddWidget (image);
-					image.Show ();
-				}
-				grid.Rebuild ();
+				forumsGallery.SetForums (forums);
+
 				loading = false;
 			});
 		}

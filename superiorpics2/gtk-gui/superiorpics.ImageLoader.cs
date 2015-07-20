@@ -8,6 +8,8 @@ namespace superiorpics
 		
 		private global::Gtk.Alignment GtkAlignment;
 		
+		private global::Gtk.EventBox eventbox;
+		
 		private global::Gtk.Image image;
 		
 		private global::Gtk.Label label;
@@ -29,9 +31,13 @@ namespace superiorpics
 			this.GtkAlignment.RightPadding = ((uint)(3));
 			this.GtkAlignment.BorderWidth = ((uint)(6));
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			this.eventbox = new global::Gtk.EventBox ();
+			this.eventbox.Name = "eventbox";
+			// Container child eventbox.Gtk.Container+ContainerChild
 			this.image = new global::Gtk.Image ();
 			this.image.Name = "image";
-			this.GtkAlignment.Add (this.image);
+			this.eventbox.Add (this.image);
+			this.GtkAlignment.Add (this.eventbox);
 			this.frame5.Add (this.GtkAlignment);
 			this.label = new global::Gtk.Label ();
 			this.label.Name = "label";

@@ -7,20 +7,23 @@ namespace superiorpics
 	[System.ComponentModel.ToolboxItem (true)]
 	public partial class ImageLoader : Gtk.Bin
 	{
-//		private Gtk.Image image = new Gtk.Image ();
+		//		private Gtk.Image image = new Gtk.Image ();
 		private string url = null;
-
+		private string link = "";
 
 		public PixbufAnimation loadAnimation = PixbufAnimation.LoadFromResource ("superiorpics.Resources.loading-icon.gif");
-
+		public Action<ImageLoader> OnLoadFailed;
 
 		public ImageLoader ()
 		{
 			this.Build ();
-//			this.Add (image);
-//			image.Show ();
+//			eventbox.ButtonPressEvent += (o, args) => {
+//				Console.WriteLine("cool");
+			//			};
 			this.SetSizeRequest (150, 150);
 		}
+
+
 
 		private void StartLoadAnimation ()
 		{
@@ -31,17 +34,25 @@ namespace superiorpics
 		{
 			this.image.PixbufAnimation = null;
 			if (data != null) {
-				this.image.Pixbuf = new Pixbuf(data);
+				this.image.Pixbuf = new Pixbuf (data);
 			}
 		}
 
+		public string Link {
+			get {
+				return link;
+			}
+			set {
+				link = value;
+			}
+		}
 
 		public string Label {
 			get {
 				return this.label.LabelProp;
 			}
 			set {
-				this.label.LabelProp = String.Format("<b>{0}</b>", value);
+				this.label.LabelProp = String.Format ("<b>{0}</b>", value);
 			}
 		}
 
@@ -52,10 +63,14 @@ namespace superiorpics
 			set {
 				StartLoadAnimation ();
 				RequestHelper.getImage (value, (byte[] data) => {
-					Gtk.Application.Invoke(delegate {
-						StopLoadAnimation(data);
+					Gtk.Application.Invoke (delegate {
+						StopLoadAnimation (data);
 						url = value;
 					});
+				}, (ex) => {
+					if (OnLoadFailed != null) {
+						OnLoadFailed (this);
+					}
 				});
 			}
 		}

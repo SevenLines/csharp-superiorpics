@@ -18,6 +18,11 @@ namespace superiorpics
 		public string url;
 		public string thumb;
 		public List<PageItem> pages;
+
+		public override string ToString ()
+		{
+			return string.Format ("[ForumItem]{0}| url{1}", title, url);
+		}
 	};
 
 	public class Source

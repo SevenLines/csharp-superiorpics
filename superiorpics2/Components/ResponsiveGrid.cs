@@ -7,13 +7,10 @@ namespace superiorpics
 	public partial class ResponsiveGrid : Gtk.Bin
 	{
 		private List<Gtk.Widget> widgets = new List<Gtk.Widget> ();
-		private Gtk.Table table = new Gtk.Table (1, 1, false);
 
 		public ResponsiveGrid ()
 		{
 			this.Build ();
-			Add (table);
-			table.Show ();
 		}
 
 
@@ -51,6 +48,14 @@ namespace superiorpics
 
 		public void RemoveWidget (Gtk.Widget widget, bool forceRebuild = false)
 		{
+			if (forceRebuild) {
+				widgets.ForEach ((w) => {
+					if (w.Parent == this.table) {
+						table.Remove (w);
+					}
+				});
+			}
+
 			widgets.Remove (widget);
 			if (forceRebuild)
 				Rebuild ();
@@ -63,6 +68,7 @@ namespace superiorpics
 					table.Remove (widget);
 				}
 			});
+
 			if (clear) {
 				widgets.Clear ();
 			}

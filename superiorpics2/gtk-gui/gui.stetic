@@ -9,7 +9,7 @@
     <widget-library name="../bin/Debug/superiorpics2.exe" internal="true" />
     <widget-library name="Mono.TextEditor, Version=1.0.0.0, Culture=neutral" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
+  <widget class="Gtk.Window" id="MainWindow" design-size="423 505">
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -20,7 +20,7 @@
         <property name="MemberName" />
         <property name="Spacing">6</property>
         <child>
-          <widget class="Gtk.Notebook" id="notebook1">
+          <widget class="Gtk.Notebook" id="notebook">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="CurrentPage">0</property>
@@ -71,22 +71,9 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.ScrolledWindow" id="scrolledwindow2">
+                  <widget class="superiorpics.Gallery" id="forumsGallery">
                     <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="ShadowType">In</property>
-                    <child>
-                      <widget class="Gtk.Viewport" id="GtkViewport">
-                        <property name="MemberName" />
-                        <property name="ShadowType">None</property>
-                        <child>
-                          <widget class="superiorpics.ResponsiveGrid" id="grid">
-                            <property name="MemberName" />
-                            <property name="Events">ButtonPressMask</property>
-                          </widget>
-                        </child>
-                      </widget>
-                    </child>
+                    <property name="Events">ButtonPressMask</property>
                   </widget>
                   <packing>
                     <property name="Position">1</property>
@@ -103,6 +90,119 @@
               <packing>
                 <property name="type">tab</property>
               </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="superiorpics.ImageLoader" design-size="300 300">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.Frame" id="frame5">
+        <property name="MemberName" />
+        <property name="ShadowType">None</property>
+        <child>
+          <widget class="Gtk.Alignment" id="GtkAlignment">
+            <property name="MemberName" />
+            <property name="Xalign">0</property>
+            <property name="Yalign">0</property>
+            <property name="LeftPadding">3</property>
+            <property name="RightPadding">3</property>
+            <property name="BorderWidth">6</property>
+            <child>
+              <widget class="Gtk.EventBox" id="eventbox">
+                <property name="MemberName" />
+                <child>
+                  <widget class="Gtk.Image" id="image">
+                    <property name="MemberName" />
+                  </widget>
+                </child>
+              </widget>
+            </child>
+          </widget>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label">
+            <property name="MemberName" />
+            <property name="LabelProp" translatable="yes">&lt;b&gt;GtkFrame&lt;/b&gt;</property>
+            <property name="UseMarkup">True</property>
+          </widget>
+          <packing>
+            <property name="type">label_item</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="superiorpics.ResponsiveGrid" design-size="300 300">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.Table" id="table">
+        <property name="MemberName" />
+        <property name="NRows">3</property>
+        <property name="NColumns">3</property>
+        <property name="RowSpacing">6</property>
+        <property name="ColumnSpacing">6</property>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+        <child>
+          <placeholder />
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="superiorpics.Gallery" design-size="572 451">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.VBox" id="vbox7">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.ScrolledWindow" id="scrolledwindow2">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="ShadowType">In</property>
+            <child>
+              <widget class="Gtk.Viewport" id="GtkViewport">
+                <property name="MemberName" />
+                <property name="ShadowType">None</property>
+                <child>
+                  <widget class="superiorpics.ResponsiveGrid" id="grid">
+                    <property name="MemberName" />
+                    <property name="Events">ButtonPressMask</property>
+                  </widget>
+                </child>
+              </widget>
             </child>
           </widget>
           <packing>
@@ -166,48 +266,6 @@
           </packing>
         </child>
       </widget>
-    </child>
-  </widget>
-  <widget class="Gtk.Bin" id="superiorpics.ImageLoader" design-size="300 300">
-    <property name="MemberName" />
-    <property name="Visible">False</property>
-    <child>
-      <widget class="Gtk.Frame" id="frame5">
-        <property name="MemberName" />
-        <property name="ShadowType">None</property>
-        <child>
-          <widget class="Gtk.Alignment" id="GtkAlignment">
-            <property name="MemberName" />
-            <property name="Xalign">0</property>
-            <property name="Yalign">0</property>
-            <property name="LeftPadding">3</property>
-            <property name="RightPadding">3</property>
-            <property name="BorderWidth">6</property>
-            <child>
-              <widget class="Gtk.Image" id="image">
-                <property name="MemberName" />
-              </widget>
-            </child>
-          </widget>
-        </child>
-        <child>
-          <widget class="Gtk.Label" id="label">
-            <property name="MemberName" />
-            <property name="LabelProp" translatable="yes">&lt;b&gt;GtkFrame&lt;/b&gt;</property>
-            <property name="UseMarkup">True</property>
-          </widget>
-          <packing>
-            <property name="type">label_item</property>
-          </packing>
-        </child>
-      </widget>
-    </child>
-  </widget>
-  <widget class="Gtk.Bin" id="superiorpics.ResponsiveGrid" design-size="300 300">
-    <property name="MemberName" />
-    <property name="Visible">False</property>
-    <child>
-      <placeholder />
     </child>
   </widget>
 </stetic-interface>

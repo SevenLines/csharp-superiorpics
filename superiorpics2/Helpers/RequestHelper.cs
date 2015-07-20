@@ -59,18 +59,21 @@ namespace superiorpics
 			}
 		}
 
-		public static async void getImage (string url, Action<byte[]> callback = null)
+		public static async void getImage (string url, Action<byte[]> callback = null, Action<Exception> fail = null)
 		{
 			var client = new HttpClient ();
 			byte[] data = null;
 			try {
 				data = await client.GetByteArrayAsync (url);
 			} catch (WebException ex) {
-				
-			} catch ( HttpRequestException ex) {
-				
+				if (fail!=null)
+					fail (ex);
+			} catch (HttpRequestException ex) {
+				if (fail!=null)
+					fail (ex);
 			} catch (TaskCanceledException ex) {
-
+				if (fail!=null)
+					fail (ex);
 			}
 			callback (data);
 		}

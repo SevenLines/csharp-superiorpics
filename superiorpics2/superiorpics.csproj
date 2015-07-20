@@ -68,6 +68,9 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.TextEditor, Version=1.0.0.0, Culture=neutral">
+      <Package>monodevelop</Package>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -89,6 +92,8 @@
     <Compile Include="gtk-gui\superiorpics.ImageLoader.cs" />
     <Compile Include="Components\ResponsiveGrid.cs" />
     <Compile Include="gtk-gui\superiorpics.ResponsiveGrid.cs" />
+    <Compile Include="Components\Gallery.cs" />
+    <Compile Include="gtk-gui\superiorpics.Gallery.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
