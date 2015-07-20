@@ -43,6 +43,12 @@ namespace superiorpics
 			}
 		}
 
+		public override string ITEM_GALLERY_ITEM {
+			get {
+				return "descendant-or-self::*[@class and contains(concat(' ', normalize-space(@class), ' '), ' post_inner ')]/div";
+			}
+		}
+
 		public override string get_href (HtmlNode node)
 		{
 			var a_nodes = node.SelectNodes (ITEM_LINK_XPATH);
@@ -67,8 +73,8 @@ namespace superiorpics
 				try {
 					int value = Convert.ToInt32 (node.InnerText);
 					if (value == 1) {
-						base_url = String.Format("{0}{1}", ROOT_URL, node.Attributes["href"].Value);
-						base_url = base_url.Replace(".html", "");
+						base_url = String.Format ("{0}{1}", ROOT_URL, node.Attributes ["href"].Value);
+						base_url = base_url.Replace (".html", "");
 					}
 					if (value > max) {
 						max = value;
@@ -87,6 +93,42 @@ namespace superiorpics
 			}
 
 			return;
+		}
+
+		public override HtmlNodeCollection get_gallery_items_nodes (HtmlNode root)
+		{
+			var node_items = new HtmlNodeCollection (null);
+			var items = base.get_gallery_items_nodes (root);
+			foreach (var item in items) {
+				// skip signatures
+				if (item.Attributes.Contains ("class") && item.Attributes ["class"].Value.Contains ("signature")) {
+					continue;
+				}
+				var nodes = item.SelectNodes ("a");
+				if (nodes != null) {
+					foreach (var node in nodes) {
+						node_items.Add (node);
+					}
+				}
+			}
+			return node_items;
+		}
+
+		public override GalleryItem get_gallery_item (HtmlNode node)
+		{
+			var img = node.SelectSingleNode ("img");
+			if (img == null)
+				return null;
+
+			var href = node.Attributes ["href"].Value;
+			if (href.StartsWith ("http://www.superiorpics.com/c/")) {
+				return null;
+			}
+
+			return new GalleryItem {
+				thumb = img.Attributes ["src"].Value,
+				url = href
+			};
 		}
 
 		public SuperiorpicsSource ()

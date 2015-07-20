@@ -18,6 +18,10 @@ public partial class MainWindow
 	private global::superiorpics.Gallery forumsGallery;
 	
 	private global::Gtk.Label label3;
+	
+	private global::superiorpics.Gallery galleryPreview;
+	
+	private global::Gtk.Label label5;
 
 	protected virtual void Build ()
 	{
@@ -25,7 +29,7 @@ public partial class MainWindow
 		// Widget MainWindow
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
-		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+		this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 		this.BorderWidth = ((uint)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox1 = new global::Gtk.VBox ();
@@ -35,7 +39,9 @@ public partial class MainWindow
 		this.notebook = new global::Gtk.Notebook ();
 		this.notebook.CanFocus = true;
 		this.notebook.Name = "notebook";
-		this.notebook.CurrentPage = 0;
+		this.notebook.CurrentPage = 1;
+		this.notebook.ShowBorder = false;
+		this.notebook.Scrollable = true;
 		// Container child notebook.Gtk.Notebook+NotebookChild
 		this.vbox4 = new global::Gtk.VBox ();
 		this.vbox4.Name = "vbox4";
@@ -85,15 +91,28 @@ public partial class MainWindow
 		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Search");
 		this.notebook.SetTabLabel (this.vbox4, this.label3);
 		this.label3.ShowAll ();
+		// Container child notebook.Gtk.Notebook+NotebookChild
+		this.galleryPreview = new global::superiorpics.Gallery ();
+		this.galleryPreview.Events = ((global::Gdk.EventMask)(256));
+		this.galleryPreview.Name = "galleryPreview";
+		this.notebook.Add (this.galleryPreview);
+		global::Gtk.Notebook.NotebookChild w6 = ((global::Gtk.Notebook.NotebookChild)(this.notebook [this.galleryPreview]));
+		w6.Position = 1;
+		// Notebook tab
+		this.label5 = new global::Gtk.Label ();
+		this.label5.Name = "label5";
+		this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Gallery");
+		this.notebook.SetTabLabel (this.galleryPreview, this.label5);
+		this.label5.ShowAll ();
 		this.vbox1.Add (this.notebook);
-		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
-		w6.Position = 0;
+		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
+		w7.Position = 0;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 423;
-		this.DefaultHeight = 505;
+		this.DefaultWidth = 870;
+		this.DefaultHeight = 540;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.btnFind.Clicked += new global::System.EventHandler (this.OnBtnFindClicked);

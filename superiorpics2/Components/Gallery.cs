@@ -55,6 +55,29 @@ namespace superiorpics
 			grid.Rebuild ();
 		}
 
+		public void SetGallery (List<GalleryItem> gallery)
+		{
+			grid.RemoveAll ();
+			foreach (var item in gallery) {
+				var image = new ImageLoader ();
+				image.Url = item.thumb;
+				image.Link = item.url;
+//				image.ButtonPressEvent += (o, args) => {
+//					if (OnItemClicked != null) {
+//						OnItemClicked (item);
+//					}
+//				};
+				image.OnLoadFailed += (ImageLoader obj) => {
+					Gtk.Application.Invoke (delegate {
+						grid.RemoveWidget (obj, true);
+					});
+				};
+				grid.AddWidget (image);
+				image.Show ();
+			}
+			grid.Rebuild ();
+		}
+
 		protected void OnCmbPageChanged (object sender, EventArgs e)
 		{
 			if (OnPageChanged != null) {

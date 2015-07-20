@@ -56,6 +56,24 @@ public partial class MainWindow: Gtk.Window
 	protected void OpenLink (ForumItem item)
 	{
 		Console.WriteLine (item);
+
+		getUrl (item.url, (data) => {
+			var doc = new HtmlDocument ();
+			doc.LoadHtml (data);
+			var root = doc.DocumentNode;
+
+			var gallery_items = source.get_gallery(root);
+			galleryPreview.SetGallery(gallery_items);
+
+			notebook.CurrentPage = 1;
+//			var gallery = new Gallery ();
+//			gallery.SetGallery(gallery_items);
+//			gallery.Show ();
+
+//			var label = new Label (item.title);
+//			label.Show ();
+//			notebook.AppendPage (gallery, label);
+		});
 	}
 
 	protected void OnBtnFindClicked (object sender, EventArgs e)

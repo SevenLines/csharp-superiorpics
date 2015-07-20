@@ -17,13 +17,18 @@ namespace superiorpics
 		public string title;
 		public string url;
 		public string thumb;
-		public List<PageItem> pages;
 
 		public override string ToString ()
 		{
 			return string.Format ("[ForumItem]{0}| url{1}", title, url);
 		}
 	};
+
+	public class GalleryItem
+	{
+		public string url;
+		public string thumb;
+	}
 
 	public class Source
 	{
@@ -63,6 +68,12 @@ namespace superiorpics
 			}
 		}
 
+		public virtual string ITEM_GALLERY_ITEM {
+			get {
+				return "";
+			}
+		}
+
 		public Source ()
 		{
 		}
@@ -71,7 +82,7 @@ namespace superiorpics
 		{
 			var nodes = get_items_nodes (root);
 
-			if (pages!=null) {
+			if (pages != null) {
 				var pager_node = get_pager (root);
 				get_pages (pager_node, pages);
 			}
@@ -87,6 +98,19 @@ namespace superiorpics
 			} else {
 				return new List<ForumItem> ();
 			}
+		}
+
+		public virtual List<GalleryItem> get_gallery (HtmlNode root)
+		{
+			List<GalleryItem> items = new List<GalleryItem> ();
+			var nodes = get_gallery_items_nodes (root);
+			foreach (var node in nodes) {
+				var item = get_gallery_item (node);
+				if (item != null) {
+					items.Add (item);
+				}
+			}
+			return items;
 		}
 
 
@@ -118,10 +142,21 @@ namespace superiorpics
 			return root.SelectSingleNode (ITEM_PAGER_XPATH); 
 		}
 
+		public virtual HtmlNodeCollection get_gallery_items_nodes (HtmlNode root)
+		{
+			return root.SelectNodes (ITEM_GALLERY_ITEM);
+		}
+
+		public virtual GalleryItem get_gallery_item (HtmlNode node)
+		{
+			throw new NotImplementedException ();
+		}
+
 		public virtual void get_pages (HtmlNode pager_node, List<PageItem> pages = null)
 		{
 			throw new NotImplementedException ();
 		}
+
 	}
 }
 

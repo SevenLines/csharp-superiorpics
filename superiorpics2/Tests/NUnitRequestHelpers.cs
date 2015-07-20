@@ -10,7 +10,6 @@ namespace superiorpics
 		[Test ()]
 		public void TestGetRequestShouldResponse ()
 		{
-			//ReguestHelper.getRequest ("http://tealeaf.ru");
 		}
 	}
 }

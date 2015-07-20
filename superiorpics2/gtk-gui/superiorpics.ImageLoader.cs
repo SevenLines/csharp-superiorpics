@@ -41,7 +41,7 @@ namespace superiorpics
 			this.frame5.Add (this.GtkAlignment);
 			this.label = new global::Gtk.Label ();
 			this.label.Name = "label";
-			this.label.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>GtkFrame</b>");
+			this.label.LabelProp = "";
 			this.label.UseMarkup = true;
 			this.frame5.LabelWidget = this.label;
 			this.Add (this.frame5);

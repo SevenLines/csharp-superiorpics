@@ -94,6 +94,7 @@
     <Compile Include="gtk-gui\superiorpics.ResponsiveGrid.cs" />
     <Compile Include="Components\Gallery.cs" />
     <Compile Include="gtk-gui\superiorpics.Gallery.cs" />
+    <Compile Include="Tests\NUnitSuperiorPics.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

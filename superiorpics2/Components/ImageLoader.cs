@@ -20,7 +20,7 @@ namespace superiorpics
 //			eventbox.ButtonPressEvent += (o, args) => {
 //				Console.WriteLine("cool");
 			//			};
-			this.SetSizeRequest (150, 150);
+			this.SetSizeRequest (200, 200);
 		}
 
 
