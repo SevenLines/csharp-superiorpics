@@ -39,7 +39,7 @@ public partial class MainWindow
 		this.notebook = new global::Gtk.Notebook ();
 		this.notebook.CanFocus = true;
 		this.notebook.Name = "notebook";
-		this.notebook.CurrentPage = 1;
+		this.notebook.CurrentPage = 0;
 		this.notebook.ShowBorder = false;
 		this.notebook.Scrollable = true;
 		// Container child notebook.Gtk.Notebook+NotebookChild
@@ -53,8 +53,8 @@ public partial class MainWindow
 		// Container child hbox1.Gtk.Box+BoxChild
 		this.edtQuery = new global::Gtk.Entry ();
 		this.edtQuery.CanFocus = true;
+		this.edtQuery.Events = ((global::Gdk.EventMask)(1024));
 		this.edtQuery.Name = "edtQuery";
-		this.edtQuery.Text = global::Mono.Unix.Catalog.GetString ("Alison Brie");
 		this.edtQuery.IsEditable = true;
 		this.edtQuery.InvisibleChar = '●';
 		this.hbox1.Add (this.edtQuery);
@@ -111,10 +111,13 @@ public partial class MainWindow
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 870;
-		this.DefaultHeight = 540;
+		this.DefaultWidth = 434;
+		this.DefaultHeight = 520;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+		this.edtQuery.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEdtQueryKeyReleaseEvent);
+		this.edtQuery.Changed += new global::System.EventHandler (this.OnEdtQueryChanged);
+		this.edtQuery.KeyPressEvent += new global::Gtk.KeyPressEventHandler (this.OnEdtQueryKeyPressEvent);
 		this.btnFind.Clicked += new global::System.EventHandler (this.OnBtnFindClicked);
 	}
 }
