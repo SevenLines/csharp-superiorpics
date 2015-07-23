@@ -30,6 +30,7 @@ namespace superiorpics
 
 		public Action<ForumItem> OnItemClicked;
 		public Action<int, string> OnPageChanged;
+		public Action<string> OnSaveClick;
 
 		public void SetForums (List<ForumItem> forums)
 		{
@@ -37,7 +38,7 @@ namespace superiorpics
 			foreach (var forum in forums) {
 				var image = new ImageLoader ();
 				image.Url = forum.thumb;
-				image.Label = forum.title;
+//				image.Label = forum.title;
 				image.Link = forum.url;
 				image.ButtonPressEvent += (o, args) => {
 					if (OnItemClicked != null) {
@@ -49,6 +50,7 @@ namespace superiorpics
 						grid.RemoveWidget (obj, true);
 					});
 				};
+
 				grid.AddWidget (image);
 				image.Show ();
 			}
@@ -59,7 +61,7 @@ namespace superiorpics
 		{
 			grid.RemoveAll ();
 			foreach (var item in gallery) {
-				var image = new ImageLoader ();
+				var image = new ImageLoader (true);
 				image.Url = item.thumb;
 				image.Link = item.url;
 //				image.ButtonPressEvent += (o, args) => {
@@ -71,6 +73,11 @@ namespace superiorpics
 					Gtk.Application.Invoke (delegate {
 						grid.RemoveWidget (obj, true);
 					});
+				};
+				image.OnSaveClick = (string link) => {
+					if (OnSaveClick!=null) {
+						OnSaveClick(link);
+					}
 				};
 				grid.AddWidget (image);
 				image.Show ();

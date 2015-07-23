@@ -13,26 +13,33 @@ namespace superiorpics
 
 		public PixbufAnimation loadAnimation = PixbufAnimation.LoadFromResource ("superiorpics.Resources.loading-icon.gif");
 		public Action<ImageLoader> OnLoadFailed;
+		public Action<string> OnSaveClick;
+		public Pixbuf pixbuf;
 
-		public ImageLoader ()
+		public ImageLoader (bool withButtons=false)
 		{
 			this.Build ();
 //			eventbox.ButtonPressEvent += (o, args) => {
 //				Console.WriteLine("cool");
 			//			};
 			this.SetSizeRequest (200, 200);
+			if (!withButtons) {
+				buttons.Hide ();
+			}
 		}
 
-		private void StartLoadAnimation ()
+		public void StartLoadAnimation ()
 		{
 			this.image.PixbufAnimation = loadAnimation;
+
 		}
 
-		private void StopLoadAnimation (byte[] data = null)
+		public void StopLoadAnimation (byte[] data = null)
 		{
 			this.image.PixbufAnimation = null;
 			if (data != null) {
-				this.image.Pixbuf = new Pixbuf (data);
+				pixbuf = new Pixbuf (data);
+				this.image.Pixbuf = pixbuf;
 			}
 		}
 
@@ -44,15 +51,15 @@ namespace superiorpics
 				link = value;
 			}
 		}
-
-		public string Label {
-			get {
-				return this.label.LabelProp;
-			}
-			set {
-				this.label.LabelProp = String.Format ("<b>{0}</b>", value);
-			}
-		}
+//
+//		public string Label {
+//			get {
+//				return this.label.LabelProp;
+//			}
+//			set {
+//				this.label.LabelProp = String.Format ("<b>{0}</b>", value);
+//			}
+//		}
 
 		public string Url {
 			get {
@@ -70,6 +77,13 @@ namespace superiorpics
 						OnLoadFailed (this);
 					}
 				});
+			}
+		}
+
+		protected void OnBtnSaveClicked (object sender, EventArgs e)
+		{
+			if (OnSaveClick != null) {
+				OnSaveClick (link);
 			}
 		}
 	}

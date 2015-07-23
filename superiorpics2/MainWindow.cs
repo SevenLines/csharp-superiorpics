@@ -13,12 +13,22 @@ using System.Reflection;
 using log4net;
 
 //Application settings wrapper class
+using Gdk;
+
+
 sealed class FormSettings : ApplicationSettingsBase
 {
 	[UserScopedSettingAttribute ()]
 	public Gdk.Rectangle FormSize {
 		get { return (Gdk.Rectangle)(this ["FormSize"]); }
 		set { this ["FormSize"] = value; }
+	}
+
+	[UserScopedSettingAttribute ()]
+	[DefaultSettingValueAttribute("Images")]
+	public string SaveDir {
+		get { return (string)(this ["SaveDir"]); }
+		set { this ["SaveDir"] = value; }
 	}
 
 	[UserScopedSettingAttribute ()]
@@ -39,6 +49,7 @@ public partial class MainWindow: Gtk.Window
 
 	List<CelebrityItemJson> celebrities = null;
 	WindowList wndCelebrityList = new WindowList ();
+	FullImagePreview wndFullPreview = new FullImagePreview();
 
 	private bool Init = false;
 
@@ -58,6 +69,11 @@ public partial class MainWindow: Gtk.Window
 		wndCelebrityList.OnSelect += (string obj) => {
 			edtQuery.Text = obj;
 			Find ();
+		};
+
+		galleryPreview.OnSaveClick += (string url) => {
+			wndFullPreview.Url = url;
+			wndFullPreview.Show();
 		};
 
 		this.FocusOutEvent += (o, args) => {

@@ -74,6 +74,12 @@
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\loading-icon.gif" />
+    <EmbeddedResource Include="..\..\..\homeworld\_IMAGES\_ICONS\hicons\png\24\Download.png">
+      <Link>Resources\Download.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\homeworld\_IMAGES\_ICONS\hicons\png\24\Close.png">
+      <Link>Resources\Close.png</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -95,7 +101,11 @@
     <Compile Include="CelebrityItemJson.cs" />
     <Compile Include="WindowList.cs" />
     <Compile Include="gtk-gui\superiorpics.WindowList.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Photohostings\Hosting.cs" />
+    <Compile Include="Photohostings\ImageBumHosting.cs" />
+    <Compile Include="Tests\NUnitImageBumHosting.cs" />
+    <Compile Include="Components\FullImagePreview.cs" />
+    <Compile Include="gtk-gui\superiorpics.FullImagePreview.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -104,6 +114,7 @@
     <Folder Include="Tests\" />
     <Folder Include="Components\" />
     <Folder Include="Resources\" />
+    <Folder Include="Photohostings\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

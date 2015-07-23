@@ -4,7 +4,11 @@ namespace superiorpics
 {
 	public partial class ResponsiveGrid
 	{
+		private global::Gtk.VBox vbox2;
+		
 		private global::Gtk.Table table;
+		
+		private global::Gtk.Alignment alignment4;
 
 		protected virtual void Build ()
 		{
@@ -13,11 +17,25 @@ namespace superiorpics
 			global::Stetic.BinContainer.Attach (this);
 			this.Name = "superiorpics.ResponsiveGrid";
 			// Container child superiorpics.ResponsiveGrid.Gtk.Container+ContainerChild
+			this.vbox2 = new global::Gtk.VBox ();
+			this.vbox2.Name = "vbox2";
+			this.vbox2.Spacing = 6;
+			// Container child vbox2.Gtk.Box+BoxChild
 			this.table = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
 			this.table.Name = "table";
 			this.table.RowSpacing = ((uint)(6));
 			this.table.ColumnSpacing = ((uint)(6));
-			this.Add (this.table);
+			this.vbox2.Add (this.table);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.table]));
+			w1.Position = 0;
+			w1.Expand = false;
+			// Container child vbox2.Gtk.Box+BoxChild
+			this.alignment4 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
+			this.alignment4.Name = "alignment4";
+			this.vbox2.Add (this.alignment4);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.alignment4]));
+			w2.Position = 1;
+			this.Add (this.vbox2);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
