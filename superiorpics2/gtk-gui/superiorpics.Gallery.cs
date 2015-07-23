@@ -88,6 +88,7 @@ namespace superiorpics
 				this.Child.ShowAll ();
 			}
 			this.Hide ();
+			this.scrolledwindow2.SizeAllocated += new global::Gtk.SizeAllocatedHandler (this.OnScrolledwindow2SizeAllocated);
 			this.cmbPage.Changed += new global::System.EventHandler (this.OnCmbPageChanged);
 		}
 	}

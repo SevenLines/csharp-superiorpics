@@ -115,9 +115,9 @@ public partial class MainWindow
 		this.DefaultHeight = 520;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
-		this.edtQuery.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnEdtQueryKeyReleaseEvent);
 		this.edtQuery.Changed += new global::System.EventHandler (this.OnEdtQueryChanged);
 		this.edtQuery.KeyPressEvent += new global::Gtk.KeyPressEventHandler (this.OnEdtQueryKeyPressEvent);
+		this.edtQuery.Activated += new global::System.EventHandler (this.OnEdtQueryActivated);
 		this.btnFind.Clicked += new global::System.EventHandler (this.OnBtnFindClicked);
 	}
 }

@@ -7,20 +7,34 @@ namespace superiorpics
 	public partial class ResponsiveGrid : Gtk.Bin
 	{
 		private List<Gtk.Widget> widgets = new List<Gtk.Widget> ();
+		private int maxSize = 210;
+
 
 		public ResponsiveGrid ()
 		{
 			this.Build ();
 		}
 
-
-		public void Rebuild ()
+		public void Reallocate (int width)
 		{
-			if (widgets.Count == 0) {
+			var cols = Convert.ToUInt32 (width / maxSize);
+			if (cols != table.NColumns) {
+				RemoveAll (false);
+				this.Rebuild (width);
+			}
+		}
+
+		public void Rebuild (int allocation_width = -1)
+		{
+			if (this.widgets.Count == 0) {
 				return;
 			}
 
-			table.NColumns = 3;
+			if (allocation_width == -1) {
+				allocation_width = this.Allocation.Width;
+			}
+
+			table.NColumns = Convert.ToUInt32 (allocation_width / maxSize);
 			table.NRows = (uint)Math.Ceiling ((double)(widgets.Count) / table.NColumns);
 
 			uint x = 0;

@@ -16,10 +16,8 @@ public partial class MainWindow: Gtk.Window
 	Source source = new SuperiorpicsSource ();
 	ListStore pagesModel = new ListStore (typeof(string), typeof(string));
 
-	//	TreeModelFilter celebrityModelProxy = null;
 	List<CelebrityItemJson> celebrities = null;
-	//	int limitCount = 0;
-	WindowList window = new WindowList();
+	WindowList wndCelebrityList = new WindowList ();
 
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
@@ -30,11 +28,15 @@ public partial class MainWindow: Gtk.Window
 
 		var items_string = File.ReadAllText ("Resources/items.json");
 		celebrities = JsonConvert.DeserializeObject<List<CelebrityItemJson>> (items_string)
-			.OrderBy((x) => x.Name).ToList();
+			.OrderBy ((x) => x.Name).ToList ();
 
-		window.OnSelect += (string obj) => {
+		wndCelebrityList.OnSelect += (string obj) => {
 			edtQuery.Text = obj;
-			btnFind.Click();
+			Find();
+		};
+
+		this.FocusOutEvent += (o, args) => {
+			wndCelebrityList.Hide ();
 		};
 	}
 
@@ -87,7 +89,7 @@ public partial class MainWindow: Gtk.Window
 		});
 	}
 
-	protected void OnBtnFindClicked (object sender, EventArgs e)
+	protected void Find ()
 	{
 		var url = String.Format (@"http://www.superiorpics.com/c/{0}/", Query ());
 		if (loading)
@@ -113,6 +115,11 @@ public partial class MainWindow: Gtk.Window
 		});
 	}
 
+	protected void OnBtnFindClicked (object sender, EventArgs e)
+	{
+		Find ();
+	}
+
 	protected void SetPageUrl (int page, string pageText)
 	{
 		if (pageText != null) {
@@ -130,26 +137,47 @@ public partial class MainWindow: Gtk.Window
 		}
 	}
 
+	protected void ShowCelebritiesSelector ()
+	{
+		int dest_x, dest_y;
+		edtQuery.GdkWindow.GetOrigin (out dest_x, out  dest_y);
+		wndCelebrityList.Show ();	
+		wndCelebrityList.Move (dest_x, dest_y + edtQuery.Allocation.Height);
+		wndCelebrityList.Resize (edtQuery.Allocation.Width, 1);
+	}
 
 	protected void OnEdtQueryChanged (object sender, EventArgs e)
 	{
 		var name = edtQuery.Text;
-		window.Items = celebrities.Where ((x) => x.Name.Contains (name))
-			.Select((x) => x.Name).Take (10).ToList();
-	}
-
-	protected void OnEdtQueryKeyReleaseEvent (object o, KeyReleaseEventArgs args)
-	{
-		window.Show ();
-
-		int dest_x, dest_y;
-		edtQuery.GdkWindow.GetOrigin (out dest_x,out  dest_y);
-		window.Move (dest_x, dest_y + edtQuery.Allocation.Height);
-		window.Resize (edtQuery.Allocation.Width, 1);
+		wndCelebrityList.Items = celebrities.Where ((x) => {
+			return x.Name.ToLower ().Contains (name.ToLower ());
+		}).Select ((x) => x.Name).Take (10).ToList ();
+		ShowCelebritiesSelector ();
 	}
 
 	protected void OnEdtQueryKeyPressEvent (object o, KeyPressEventArgs args)
 	{
 		Console.WriteLine (args.Event.Key);
+		switch (args.Event.Key) {
+		case Gdk.Key.Down:
+			args.RetVal = true;
+			wndCelebrityList.SelectNext ();
+			break;
+		case Gdk.Key.Up:
+			args.RetVal = true;
+			wndCelebrityList.SelectPrevious ();
+			break;
+		case Gdk.Key.Escape:
+			args.RetVal = true;
+			wndCelebrityList.Hide ();
+			break;
+		}
+	}
+
+	protected void OnEdtQueryActivated (object sender, EventArgs e)
+	{
+		edtQuery.Text = wndCelebrityList.ActiveItem;
+		wndCelebrityList.Hide ();
+		Find ();
 	}
 }

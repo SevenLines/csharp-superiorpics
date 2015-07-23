@@ -5,9 +5,9 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../bin/Debug/superiorpics2.exe" internal="true" />
     <widget-library name="Mono.TextEditor, Version=1.0.0.0, Culture=neutral" />
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../bin/Release/superiorpics2.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="434 520">
     <property name="MemberName" />
@@ -41,9 +41,9 @@
                         <property name="Events">KeyPressMask</property>
                         <property name="IsEditable">True</property>
                         <property name="InvisibleChar">●</property>
-                        <signal name="KeyReleaseEvent" handler="OnEdtQueryKeyReleaseEvent" />
                         <signal name="Changed" handler="OnEdtQueryChanged" />
                         <signal name="KeyPressEvent" handler="OnEdtQueryKeyPressEvent" />
+                        <signal name="Activated" handler="OnEdtQueryActivated" />
                       </widget>
                       <packing>
                         <property name="Position">0</property>
@@ -214,6 +214,7 @@
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="ShadowType">In</property>
+            <signal name="SizeAllocated" handler="OnScrolledwindow2SizeAllocated" />
             <child>
               <widget class="Gtk.Viewport" id="GtkViewport">
                 <property name="MemberName" />

@@ -84,6 +84,11 @@ namespace superiorpics
 				OnPageChanged (cmbPage.Active, cmbPage.ActiveText);
 			}
 		}
+
+		protected void OnScrolledwindow2SizeAllocated (object o, SizeAllocatedArgs args)
+		{
+			grid.Reallocate (args.Allocation.Width);
+		}
 	}
 }
 
