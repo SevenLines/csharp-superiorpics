@@ -21,8 +21,11 @@ namespace superiorpics
 
 		public string ActiveItem {
 			get { 
-				var text = widgets [lastSelectedWidgetIndex].Label; 
-				return text.Replace (">> ", "");
+				if (widgets.Count > 0 && lastSelectedWidgetIndex < widgets.Count) {
+					var text = widgets [lastSelectedWidgetIndex].Label; 
+					return text.Replace (">> ", "");
+				}
+				return null;
 			}
 		}
 

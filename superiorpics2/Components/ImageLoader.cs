@@ -23,8 +23,6 @@ namespace superiorpics
 			this.SetSizeRequest (200, 200);
 		}
 
-
-
 		private void StartLoadAnimation ()
 		{
 			this.image.PixbufAnimation = loadAnimation;

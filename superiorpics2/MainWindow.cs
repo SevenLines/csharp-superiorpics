@@ -1,26 +1,51 @@
 ﻿using System;
-using Gtk;
 using HtmlAgilityPack;
 using superiorpics;
 using System.Text.RegularExpressions;
 using System.Net;
 using System.Threading;
 using System.IO;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Reflection;
+using log4net;
+
+//Application settings wrapper class
+sealed class FormSettings : ApplicationSettingsBase
+{
+	[UserScopedSettingAttribute ()]
+	public Gdk.Rectangle FormSize {
+		get { return (Gdk.Rectangle)(this ["FormSize"]); }
+		set { this ["FormSize"] = value; }
+	}
+
+	[UserScopedSettingAttribute ()]
+	public string Query {
+		get { return (string)(this ["Query"]); }
+		set { this ["Query"] = value; }
+	}
+}
 
 public partial class MainWindow: Gtk.Window
 {
+	private FormSettings settings = new FormSettings ();
+
+	public static ILog log = LogManager.GetLogger (typeof(MainWindow));
+
 	Source source = new SuperiorpicsSource ();
-	ListStore pagesModel = new ListStore (typeof(string), typeof(string));
+	Gtk.ListStore pagesModel = new Gtk.ListStore (typeof(string), typeof(string));
 
 	List<CelebrityItemJson> celebrities = null;
 	WindowList wndCelebrityList = new WindowList ();
 
+	private bool Init = false;
+
 	public MainWindow () : base (Gtk.WindowType.Toplevel)
 	{
+		Init = true;
+
 		Build ();
 		forumsGallery.PagesModel = pagesModel;
 		forumsGallery.OnItemClicked = OpenLink;
@@ -32,17 +57,41 @@ public partial class MainWindow: Gtk.Window
 
 		wndCelebrityList.OnSelect += (string obj) => {
 			edtQuery.Text = obj;
-			Find();
+			Find ();
 		};
 
 		this.FocusOutEvent += (o, args) => {
 			wndCelebrityList.Hide ();
 		};
+
+		LoadSettings ();
+
+		Init = false;
 	}
 
-	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
+	protected void LoadSettings ()
 	{
-		Application.Quit ();
+		settings.Reload ();
+		this.GdkWindow.Move (settings.FormSize.Left, settings.FormSize.Top);
+		this.GdkWindow.Resize (settings.FormSize.Width, settings.FormSize.Height);
+		this.edtQuery.Text = settings.Query;
+		Find ();
+	}
+
+	protected void SaveSettings ()
+	{
+		int x, y;
+		GdkWindow.GetOrigin (out x, out y);
+
+		settings.FormSize = new Gdk.Rectangle (x, y, Allocation.Width, Allocation.Height);
+		settings.Query = edtQuery.Text;
+		settings.Save ();
+	}
+
+	protected void OnDeleteEvent (object sender, Gtk.DeleteEventArgs a)
+	{
+		SaveSettings ();
+		Gtk.Application.Quit ();
 		a.RetVal = true;
 	}
 
@@ -67,7 +116,7 @@ public partial class MainWindow: Gtk.Window
 			});
 		}, (ex) => {
 			var response = (HttpWebResponse)ex.Response;
-			Console.WriteLine (response.StatusCode);
+			log.Warn (response.StatusCode);
 			loading = false;
 		});
 	}
@@ -75,7 +124,7 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OpenLink (ForumItem item)
 	{
-		Console.WriteLine (item);
+		log.Info (item);
 
 		getUrl (item.url, (data) => {
 			var doc = new HtmlDocument ();
@@ -148,6 +197,8 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnEdtQueryChanged (object sender, EventArgs e)
 	{
+		if (Init)
+			return;
 		var name = edtQuery.Text;
 		wndCelebrityList.Items = celebrities.Where ((x) => {
 			return x.Name.ToLower ().Contains (name.ToLower ());
@@ -155,9 +206,8 @@ public partial class MainWindow: Gtk.Window
 		ShowCelebritiesSelector ();
 	}
 
-	protected void OnEdtQueryKeyPressEvent (object o, KeyPressEventArgs args)
+	protected void OnEdtQueryKeyPressEvent (object o, Gtk.KeyPressEventArgs args)
 	{
-		Console.WriteLine (args.Event.Key);
 		switch (args.Event.Key) {
 		case Gdk.Key.Down:
 			args.RetVal = true;
@@ -176,7 +226,9 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnEdtQueryActivated (object sender, EventArgs e)
 	{
-		edtQuery.Text = wndCelebrityList.ActiveItem;
+		if (wndCelebrityList.ActiveItem != null) {
+			edtQuery.Text = wndCelebrityList.ActiveItem;
+		}
 		wndCelebrityList.Hide ();
 		Find ();
 	}
