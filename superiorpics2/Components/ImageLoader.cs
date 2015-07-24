@@ -13,6 +13,7 @@ namespace superiorpics
 
 		public PixbufAnimation loadAnimation = PixbufAnimation.LoadFromResource ("superiorpics.Resources.loading-icon.gif");
 		public Action<ImageLoader> OnLoadFailed;
+		public Action<ImageLoader> OnLoaded;
 		public Action<string> OnSaveClick;
 		public Pixbuf pixbuf;
 
@@ -64,7 +65,7 @@ namespace superiorpics
 			}
 		}
 
-		public Gtk.Image Image {
+		public ImageEx Image {
 			get  { return this.image; }
 		}
 		//
@@ -87,6 +88,9 @@ namespace superiorpics
 					Gtk.Application.Invoke (delegate {
 						StopLoadAnimation (data);
 						url = value;
+						if (OnLoaded != null) {
+							OnLoaded (this);
+						}
 					});
 				}, (ex) => {
 					if (OnLoadFailed != null) {

@@ -17,6 +17,11 @@ namespace superiorpics
 				"Cancel", ResponseType.Cancel,
 				"Save", ResponseType.Accept
 			);
+
+			imageloader.OnLoaded += (ImageLoader obj) => {
+				imageloader.ShowButtons = true;
+				Console.WriteLine(obj.Url);
+			};
 		}
 
 		protected override bool OnDeleteEvent (Gdk.Event evnt)
@@ -33,14 +38,15 @@ namespace superiorpics
 				imageloader.ShowButtons = false;
 				hosting.GetImageUrl (url, (image_src) => {
 					imageloader.Url = image_src;
-					imageloader.ShowButtons = true;
 				});
 			}
 
 			imageloader.OnSaveClick += (string obj) => {
+				saveDialog.CurrentName = System.IO.Path.GetFileName(imageloader.Url);
 				if (saveDialog.Run () == (int)ResponseType.Accept) {
 					imageloader.Image.Pixbuf.Save(saveDialog.Filename, "jpeg");
 				}
+				saveDialog.Hide();
 			};
 		}
 
