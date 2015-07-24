@@ -16,7 +16,7 @@ namespace superiorpics
 		public Action<string> OnSaveClick;
 		public Pixbuf pixbuf;
 
-		public ImageLoader (bool withButtons=false)
+		public ImageLoader (bool withButtons = false)
 		{
 			this.Build ();
 //			eventbox.ButtonPressEvent += (o, args) => {
@@ -28,10 +28,22 @@ namespace superiorpics
 			}
 		}
 
+		public bool ShowButtons {
+			get {
+				return buttons.Visible;
+			}
+			set {
+				if (value)
+					buttons.Show ();
+				else
+					buttons.Hide ();
+			}
+		}
+
 		public void StartLoadAnimation ()
 		{
+			this.image.Pixbuf = null;
 			this.image.PixbufAnimation = loadAnimation;
-
 		}
 
 		public void StopLoadAnimation (byte[] data = null)
@@ -51,15 +63,19 @@ namespace superiorpics
 				link = value;
 			}
 		}
-//
-//		public string Label {
-//			get {
-//				return this.label.LabelProp;
-//			}
-//			set {
-//				this.label.LabelProp = String.Format ("<b>{0}</b>", value);
-//			}
-//		}
+
+		public Gtk.Image Image {
+			get  { return this.image; }
+		}
+		//
+		//		public string Label {
+		//			get {
+		//				return this.label.LabelProp;
+		//			}
+		//			set {
+		//				this.label.LabelProp = String.Format ("<b>{0}</b>", value);
+		//			}
+		//		}
 
 		public string Url {
 			get {

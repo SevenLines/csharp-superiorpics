@@ -106,6 +106,7 @@
     <Compile Include="Tests\NUnitImageBumHosting.cs" />
     <Compile Include="Components\FullImagePreview.cs" />
     <Compile Include="gtk-gui\superiorpics.FullImagePreview.cs" />
+    <Compile Include="Components\ImageEx.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

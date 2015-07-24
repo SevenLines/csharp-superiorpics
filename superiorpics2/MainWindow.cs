@@ -25,7 +25,13 @@ sealed class FormSettings : ApplicationSettingsBase
 	}
 
 	[UserScopedSettingAttribute ()]
-	[DefaultSettingValueAttribute("Images")]
+	public Gdk.Rectangle WindowPreviewSize {
+		get { return (Gdk.Rectangle)(this ["WindowPreviewSize"]); }
+		set { this ["WindowPreviewSize"] = value; }
+	}
+
+	[UserScopedSettingAttribute ()]
+	[DefaultSettingValueAttribute ("Images")]
 	public string SaveDir {
 		get { return (string)(this ["SaveDir"]); }
 		set { this ["SaveDir"] = value; }
@@ -49,7 +55,7 @@ public partial class MainWindow: Gtk.Window
 
 	List<CelebrityItemJson> celebrities = null;
 	WindowList wndCelebrityList = new WindowList ();
-	FullImagePreview wndFullPreview = new FullImagePreview();
+	FullImagePreview wndFullPreview = new FullImagePreview ();
 
 	private bool Init = false;
 
@@ -59,7 +65,7 @@ public partial class MainWindow: Gtk.Window
 
 		Build ();
 		forumsGallery.PagesModel = pagesModel;
-		forumsGallery.OnItemClicked = OpenLink;
+		forumsGallery.OnForumClick = OpenLink;
 		forumsGallery.OnPageChanged = SetPageUrl;
 
 		var items_string = File.ReadAllText ("Resources/items.json");
@@ -71,15 +77,16 @@ public partial class MainWindow: Gtk.Window
 			Find ();
 		};
 
-		galleryPreview.OnSaveClick += (string url) => {
-			wndFullPreview.Url = url;
-			wndFullPreview.Show();
+		galleryPreview.OnGalleryItemClick += (GalleryItem item) => {
+			wndFullPreview.Url = item.url;
+			wndFullPreview.Show ();
 		};
 
 		this.FocusOutEvent += (o, args) => {
 			wndCelebrityList.Hide ();
 		};
 
+		wndFullPreview.Hide ();
 		LoadSettings ();
 
 		Init = false;
@@ -88,6 +95,15 @@ public partial class MainWindow: Gtk.Window
 	protected void LoadSettings ()
 	{
 		settings.Reload ();
+		wndFullPreview.GdkWindow.Move (
+			settings.WindowPreviewSize.Left, 
+			settings.WindowPreviewSize.Top
+		);
+		wndFullPreview.GdkWindow.Resize (
+			settings.WindowPreviewSize.Width, 
+			settings.WindowPreviewSize.Height
+		);
+
 		this.GdkWindow.Move (settings.FormSize.Left, settings.FormSize.Top);
 		this.GdkWindow.Resize (settings.FormSize.Width, settings.FormSize.Height);
 		this.edtQuery.Text = settings.Query;
@@ -100,6 +116,12 @@ public partial class MainWindow: Gtk.Window
 		GdkWindow.GetOrigin (out x, out y);
 
 		settings.FormSize = new Gdk.Rectangle (x, y, Allocation.Width, Allocation.Height);
+
+		wndFullPreview.GdkWindow.GetOrigin (out x, out y);
+		settings.WindowPreviewSize = new Gdk.Rectangle (
+			x, y, 
+			wndFullPreview.Allocation.Width, wndFullPreview.Allocation.Height
+		);
 		settings.Query = edtQuery.Text;
 		settings.Save ();
 	}

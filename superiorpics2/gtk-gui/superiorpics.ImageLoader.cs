@@ -10,7 +10,7 @@ namespace superiorpics
 		
 		private global::Gtk.Alignment alignment1;
 		
-		private global::Gtk.Image image;
+		private global::superiorpics.ImageEx image;
 		
 		private global::Gtk.HBox buttons;
 		
@@ -37,7 +37,7 @@ namespace superiorpics
 			this.alignment1 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment1.Name = "alignment1";
 			// Container child alignment1.Gtk.Container+ContainerChild
-			this.image = new global::Gtk.Image ();
+			this.image = new global::superiorpics.ImageEx ();
 			this.image.Name = "image";
 			this.alignment1.Add (this.image);
 			this.vbox1.Add (this.alignment1);

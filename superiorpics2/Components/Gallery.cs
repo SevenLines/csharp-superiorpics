@@ -28,7 +28,8 @@ namespace superiorpics
 			}
 		}
 
-		public Action<ForumItem> OnItemClicked;
+		public Action<ForumItem> OnForumClick;
+		public Action<GalleryItem> OnGalleryItemClick;
 		public Action<int, string> OnPageChanged;
 		public Action<string> OnSaveClick;
 
@@ -41,8 +42,8 @@ namespace superiorpics
 //				image.Label = forum.title;
 				image.Link = forum.url;
 				image.ButtonPressEvent += (o, args) => {
-					if (OnItemClicked != null) {
-						OnItemClicked (forum);
+					if (OnForumClick != null) {
+						OnForumClick (forum);
 					}
 				};
 				image.OnLoadFailed += (ImageLoader obj) => {
@@ -64,11 +65,11 @@ namespace superiorpics
 				var image = new ImageLoader (true);
 				image.Url = item.thumb;
 				image.Link = item.url;
-//				image.ButtonPressEvent += (o, args) => {
-//					if (OnItemClicked != null) {
-//						OnItemClicked (item);
-//					}
-//				};
+				image.ButtonPressEvent += (o, args) => {
+					if (OnGalleryItemClick != null) {
+						OnGalleryItemClick (item);
+					}
+				};
 				image.OnLoadFailed += (ImageLoader obj) => {
 					Gtk.Application.Invoke (delegate {
 						grid.RemoveWidget (obj, true);

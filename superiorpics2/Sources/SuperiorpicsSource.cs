@@ -104,7 +104,7 @@ namespace superiorpics
 				if (item.Attributes.Contains ("class") && item.Attributes ["class"].Value.Contains ("signature")) {
 					continue;
 				}
-				var nodes = item.SelectNodes ("a");
+				var nodes = item.SelectNodes (".//a");
 				if (nodes != null) {
 					foreach (var node in nodes) {
 						node_items.Add (node);
@@ -116,7 +116,7 @@ namespace superiorpics
 
 		public override GalleryItem get_gallery_item (HtmlNode node)
 		{
-			var img = node.SelectSingleNode ("img");
+			var img = node.SelectSingleNode (".//img");
 			if (img == null)
 				return null;
 

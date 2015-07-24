@@ -27,6 +27,7 @@ namespace superiorpics
 			this.imageloader = new global::superiorpics.ImageLoader ();
 			this.imageloader.Events = ((global::Gdk.EventMask)(256));
 			this.imageloader.Name = "imageloader";
+			this.imageloader.ShowButtons = false;
 			w1.Add (this.imageloader);
 			this.scrolledwindow1.Add (w1);
 			this.Add (this.scrolledwindow1);

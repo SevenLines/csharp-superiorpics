@@ -137,7 +137,7 @@
               <widget class="Gtk.Alignment" id="alignment1">
                 <property name="MemberName" />
                 <child>
-                  <widget class="Gtk.Image" id="image">
+                  <widget class="superiorpics.ImageEx" id="image">
                     <property name="MemberName" />
                   </widget>
                 </child>
@@ -392,6 +392,7 @@
               <widget class="superiorpics.ImageLoader" id="imageloader">
                 <property name="MemberName" />
                 <property name="Events">ButtonPressMask</property>
+                <property name="ShowButtons">False</property>
               </widget>
             </child>
           </widget>
