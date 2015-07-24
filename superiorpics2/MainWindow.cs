@@ -19,15 +19,17 @@ using Gdk;
 sealed class FormSettings : ApplicationSettingsBase
 {
 	[UserScopedSettingAttribute ()]
+	[DefaultSettingValueAttribute ("")]
 	public Gdk.Rectangle FormSize {
 		get { return (Gdk.Rectangle)(this ["FormSize"]); }
 		set { this ["FormSize"] = value; }
 	}
 
 	[UserScopedSettingAttribute ()]
-	public Gdk.Rectangle WindowPreviewSize {
-		get { return (Gdk.Rectangle)(this ["WindowPreviewSize"]); }
-		set { this ["WindowPreviewSize"] = value; }
+	[DefaultSettingValueAttribute ("100")]
+	public int GalleryPanPosition {
+		get { return (int)(this ["GalleryPanPosition"]); }
+		set { this ["GalleryPanPosition"] = value; }
 	}
 
 	[UserScopedSettingAttribute ()]
@@ -38,6 +40,7 @@ sealed class FormSettings : ApplicationSettingsBase
 	}
 
 	[UserScopedSettingAttribute ()]
+	[DefaultSettingValueAttribute ("")]
 	public string Query {
 		get { return (string)(this ["Query"]); }
 		set { this ["Query"] = value; }
@@ -64,7 +67,7 @@ public partial class MainWindow: Gtk.Window
 
 		Build ();
 		forumsGallery.PagesModel = pagesModel;
-		forumsGallery.OnForumClick = OpenLink;
+		forumsGallery.OnForumClick = OpenForum;
 		forumsGallery.OnPageChanged = SetPageUrl;
 
 		var items_string = File.ReadAllText ("Resources/items.json");
@@ -85,6 +88,16 @@ public partial class MainWindow: Gtk.Window
 		};
 
 		LoadSettings ();
+		randomLine.OnRandomButtonClick = (RandomCelebs obj) => {
+			randomLine.GenRandom(celebrities);
+		};
+		randomLine.OnItemClick = (CelebrityItemJson obj) => {
+			Init = true;
+			this.edtQuery.Text = obj.Name;
+			Find ();
+			Init = false;
+		};
+		randomLine.GenRandom (celebrities);
 
 		Init = false;
 	}
@@ -92,15 +105,8 @@ public partial class MainWindow: Gtk.Window
 	protected void LoadSettings ()
 	{
 		settings.Reload ();
-//		imagePreview.GdkWindow.Move (
-//			settings.WindowPreviewSize.Left, 
-//			settings.WindowPreviewSize.Top
-//		);
-//		imagePreview.GdkWindow.Resize (
-//			settings.WindowPreviewSize.Width, 
-//			settings.WindowPreviewSize.Height
-//		);
 
+		this.galleryPan.Position = settings.GalleryPanPosition;
 		this.GdkWindow.Move (settings.FormSize.Left, settings.FormSize.Top);
 		this.GdkWindow.Resize (settings.FormSize.Width, settings.FormSize.Height);
 		this.edtQuery.Text = settings.Query;
@@ -113,12 +119,7 @@ public partial class MainWindow: Gtk.Window
 		GdkWindow.GetOrigin (out x, out y);
 
 		settings.FormSize = new Gdk.Rectangle (x, y, Allocation.Width, Allocation.Height);
-
-//		imagePreview.GdkWindow.GetOrigin (out x, out y);
-//		settings.WindowPreviewSize = new Gdk.Rectangle (
-//			x, y, 
-//			imagePreview.Allocation.Width, imagePreview.Allocation.Height
-//		);
+		settings.GalleryPanPosition = this.galleryPan.Position;
 		settings.Query = edtQuery.Text;
 		settings.Save ();
 	}
@@ -157,9 +158,11 @@ public partial class MainWindow: Gtk.Window
 	}
 
 
-	protected void OpenLink (ForumItem item)
+	protected void OpenForum (ForumItem item)
 	{
 		log.Info (item);
+
+		lblGalleryTab.LabelProp = item.title;
 
 		getUrl (item.url, (data) => {
 			var doc = new HtmlDocument ();

@@ -7,7 +7,6 @@ namespace superiorpics
 	[System.ComponentModel.ToolboxItem (true)]
 	public partial class ImageLoader : Gtk.Bin
 	{
-		//		private Gtk.Image image = new Gtk.Image ();
 		private string url = null;
 		private string link = "";
 
@@ -20,9 +19,6 @@ namespace superiorpics
 		public ImageLoader (bool withButtons = false)
 		{
 			this.Build ();
-//			eventbox.ButtonPressEvent += (o, args) => {
-//				Console.WriteLine("cool");
-			//			};
 			this.SetSizeRequest (200, 200);
 			if (!withButtons) {
 				buttons.Hide ();
@@ -68,15 +64,20 @@ namespace superiorpics
 		public ImageEx Image {
 			get  { return this.image; }
 		}
-		//
-		//		public string Label {
-		//			get {
-		//				return this.label.LabelProp;
-		//			}
-		//			set {
-		//				this.label.LabelProp = String.Format ("<b>{0}</b>", value);
-		//			}
-		//		}
+
+		public string Label {
+			get {
+				return this.label.LabelProp;
+			}
+			set {
+				if (String.IsNullOrEmpty (value)) {
+					this.label.Hide ();
+				} else {
+					this.label.Show ();
+				}
+				this.label.LabelProp = String.Format ("<b>{0}</b>", value);
+			}
+		}
 
 		public string Url {
 			get {
@@ -108,4 +109,4 @@ namespace superiorpics
 		}
 	}
 }
-
+	

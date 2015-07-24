@@ -81,9 +81,11 @@ namespace superiorpics
 		public virtual List<ForumItem> get_forums (HtmlNode root, List<PageItem> pages = null)
 		{
 			var nodes = get_items_nodes (root);
-
 			if (pages != null) {
 				var pager_node = get_pager (root);
+				if (pager_node == null) {
+					return new List<ForumItem> ();
+				}
 				get_pages (pager_node, pages);
 			}
 

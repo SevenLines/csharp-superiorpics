@@ -11,23 +11,24 @@ namespace superiorpics
 		FileChooserDialog saveDialog;
 		public static ILog log = LogManager.GetLogger (typeof(ImagePreviewWidget));
 
-		Hosting[] Hostings = new Hosting[]{
+		Hosting[] Hostings = new Hosting[] {
 			new ImageBumHosting (),
 			new ImagevenueHosting (),
-			new HotflickHosting(),
-			new ImageboxHosting()
+			new HotflickHosting (),
+			new ImageboxHosting (),
+			new RadicalHosting()
 		};
 
 		public ImagePreviewWidget ()
 		{
 			this.Build ();
-			//			saveDialog = new FileChooserDialog (
-			//				"", 
-			//				this.GdkWindow, 
-			//				FileChooserAction.Save,
-			//				"Cancel", ResponseType.Cancel,
-			//				"Save", ResponseType.Accept
-			//			);
+			saveDialog = new FileChooserDialog (
+				"", 
+				null, 
+				FileChooserAction.Save,
+				"Cancel", ResponseType.Cancel,
+				"Save", ResponseType.Accept
+			);
 
 			imageloader.OnLoaded += (ImageLoader obj) => {
 				imageloader.ShowButtons = true;
@@ -51,12 +52,14 @@ namespace superiorpics
 
 		protected void UpdateTitle ()
 		{
-			//			this.Title = String.Format (
-			//				"{0}x{1} | {2}",
-			//				imageloader.Image.Pixbuf.Width,
-			//				imageloader.Image.Pixbuf.Height,
-			//				imageloader.Url
-			//			);
+			var fileName = System.IO.Path.GetFileName (imageloader.Url);
+			imageloader.Label = String.Format (
+				"{0}x{1} | <a href=\"{2}\">{3}</a>",
+				imageloader.Image.Pixbuf.Width,
+				imageloader.Image.Pixbuf.Height,
+				imageloader.Url,
+				fileName
+			);
 		}
 
 		private void LoadImage ()
@@ -64,7 +67,7 @@ namespace superiorpics
 			log.Info ("Try to load: " + url);
 			foreach (var hosting in Hostings) {
 				if (hosting.IsHostingFor (url)) {
-					log.Info ("Hosting is: " + hosting.GetType().Name);
+					log.Info ("Hosting is: " + hosting.GetType ().Name);
 					log.Debug ("Start loading");
 					imageloader.StartLoadAnimation ();
 					imageloader.ShowButtons = false;

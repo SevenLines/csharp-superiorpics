@@ -39,7 +39,7 @@ namespace superiorpics
 			foreach (var forum in forums) {
 				var image = new ImageLoader ();
 				image.Url = forum.thumb;
-//				image.Label = forum.title;
+				image.Label = forum.title;
 				image.Link = forum.url;
 				image.ButtonPressEvent += (o, args) => {
 					if (OnForumClick != null) {

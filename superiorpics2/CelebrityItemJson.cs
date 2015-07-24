@@ -16,6 +16,12 @@ namespace superiorpics
 			get;
 			set;
 		}
+
+		[JsonProperty ("thumb")]
+		public string Thumb {
+			get;
+			set;
+		}
 	}
 }
 

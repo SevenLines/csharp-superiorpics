@@ -23,66 +23,90 @@
           <widget class="Gtk.Notebook" id="notebook">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">1</property>
+            <property name="CurrentPage">0</property>
             <property name="ShowBorder">False</property>
             <property name="Scrollable">True</property>
             <child>
-              <widget class="Gtk.VBox" id="vbox4">
+              <widget class="Gtk.HBox" id="hbox3">
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
-                  <widget class="Gtk.HBox" id="hbox1">
+                  <widget class="Gtk.VBox" id="vbox5">
                     <property name="MemberName" />
                     <property name="Spacing">6</property>
                     <child>
-                      <widget class="Gtk.Entry" id="edtQuery">
+                      <widget class="Gtk.HBox" id="hbox1">
                         <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="Events">KeyPressMask</property>
-                        <property name="IsEditable">True</property>
-                        <property name="InvisibleChar">●</property>
-                        <signal name="Changed" handler="OnEdtQueryChanged" />
-                        <signal name="KeyPressEvent" handler="OnEdtQueryKeyPressEvent" />
-                        <signal name="Activated" handler="OnEdtQueryActivated" />
+                        <property name="Spacing">6</property>
+                        <child>
+                          <widget class="Gtk.Entry" id="edtQuery">
+                            <property name="MemberName" />
+                            <property name="CanFocus">True</property>
+                            <property name="Events">KeyPressMask</property>
+                            <property name="IsEditable">True</property>
+                            <property name="InvisibleChar">●</property>
+                            <signal name="Changed" handler="OnEdtQueryChanged" />
+                            <signal name="KeyPressEvent" handler="OnEdtQueryKeyPressEvent" />
+                            <signal name="Activated" handler="OnEdtQueryActivated" />
+                          </widget>
+                          <packing>
+                            <property name="Position">0</property>
+                            <property name="AutoSize">True</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="Gtk.Button" id="btnFind">
+                            <property name="MemberName" />
+                            <property name="CanFocus">True</property>
+                            <property name="UseStock">True</property>
+                            <property name="Type">StockItem</property>
+                            <property name="StockId">gtk-find</property>
+                            <signal name="Clicked" handler="OnBtnFindClicked" />
+                            <property name="label">gtk-find</property>
+                          </widget>
+                          <packing>
+                            <property name="Position">1</property>
+                            <property name="AutoSize">True</property>
+                            <property name="Expand">False</property>
+                            <property name="Fill">False</property>
+                          </packing>
+                        </child>
                       </widget>
                       <packing>
                         <property name="Position">0</property>
-                        <property name="AutoSize">True</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="Gtk.Button" id="btnFind">
-                        <property name="MemberName" />
-                        <property name="CanFocus">True</property>
-                        <property name="UseStock">True</property>
-                        <property name="Type">StockItem</property>
-                        <property name="StockId">gtk-find</property>
-                        <signal name="Clicked" handler="OnBtnFindClicked" />
-                        <property name="label">gtk-find</property>
-                      </widget>
-                      <packing>
-                        <property name="Position">1</property>
                         <property name="AutoSize">True</property>
                         <property name="Expand">False</property>
                         <property name="Fill">False</property>
                       </packing>
                     </child>
+                    <child>
+                      <widget class="superiorpics.Gallery" id="forumsGallery">
+                        <property name="MemberName" />
+                        <property name="Events">ButtonPressMask</property>
+                      </widget>
+                      <packing>
+                        <property name="Position">1</property>
+                        <property name="AutoSize">True</property>
+                      </packing>
+                    </child>
                   </widget>
                   <packing>
                     <property name="Position">0</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
+                    <property name="AutoSize">False</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="superiorpics.Gallery" id="forumsGallery">
+                  <widget class="superiorpics.RandomCelebs" id="randomLine">
                     <property name="MemberName" />
+                    <property name="WidthRequest">200</property>
                     <property name="Events">ButtonPressMask</property>
+                    <property name="ItemsCount">4</property>
                   </widget>
                   <packing>
                     <property name="Position">1</property>
-                    <property name="AutoSize">True</property>
+                    <property name="AutoSize">False</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
                   </packing>
                 </child>
               </widget>
@@ -97,7 +121,7 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.HPaned" id="hpaned1">
+              <widget class="Gtk.HPaned" id="galleryPan">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="Position">484</property>
@@ -129,10 +153,11 @@
               </widget>
               <packing>
                 <property name="Position">1</property>
+                <property name="TabExpand">True</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Label" id="label5">
+              <widget class="Gtk.Label" id="lblGalleryTab">
                 <property name="MemberName" />
                 <property name="LabelProp" translatable="yes">Gallery</property>
               </widget>
@@ -160,6 +185,21 @@
             <property name="MemberName" />
             <property name="Spacing">6</property>
             <child>
+              <widget class="Gtk.Label" id="label">
+                <property name="MemberName" />
+                <property name="Visible">False</property>
+                <property name="LabelProp" translatable="yes">...</property>
+                <property name="UseMarkup">True</property>
+                <property name="UseUnderline">True</property>
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
               <widget class="Gtk.Alignment" id="alignment1">
                 <property name="MemberName" />
                 <child>
@@ -169,7 +209,7 @@
                 </child>
               </widget>
               <packing>
-                <property name="Position">0</property>
+                <property name="Position">1</property>
                 <property name="AutoSize">False</property>
               </packing>
             </child>
@@ -206,25 +246,9 @@
                     <property name="Fill">False</property>
                   </packing>
                 </child>
-                <child>
-                  <widget class="Gtk.Button" id="button1">
-                    <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="UseStock">True</property>
-                    <property name="Type">StockItem</property>
-                    <property name="StockId">gtk-remove</property>
-                    <property name="label">gtk-remove</property>
-                  </widget>
-                  <packing>
-                    <property name="Position">2</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
-                </child>
               </widget>
               <packing>
-                <property name="Position">1</property>
+                <property name="Position">2</property>
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
@@ -409,6 +433,32 @@
         <property name="MemberName" />
         <property name="Events">ButtonPressMask</property>
         <property name="ShowButtons">False</property>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="superiorpics.RandomCelebs" design-size="528 467">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.VBox" id="vbox1">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.Button" id="btnRandom">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Type">TextOnly</property>
+            <property name="Label" translatable="yes">Random</property>
+            <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnBtnRandomClicked" />
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
       </widget>
     </child>
   </widget>

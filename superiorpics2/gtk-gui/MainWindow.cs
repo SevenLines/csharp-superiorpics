@@ -7,7 +7,9 @@ public partial class MainWindow
 	
 	private global::Gtk.Notebook notebook;
 	
-	private global::Gtk.VBox vbox4;
+	private global::Gtk.HBox hbox3;
+	
+	private global::Gtk.VBox vbox5;
 	
 	private global::Gtk.HBox hbox1;
 	
@@ -17,9 +19,11 @@ public partial class MainWindow
 	
 	private global::superiorpics.Gallery forumsGallery;
 	
+	private global::superiorpics.RandomCelebs randomLine;
+	
 	private global::Gtk.Label label3;
 	
-	private global::Gtk.HPaned hpaned1;
+	private global::Gtk.HPaned galleryPan;
 	
 	private global::Gtk.HBox hbox2;
 	
@@ -27,7 +31,7 @@ public partial class MainWindow
 	
 	private global::superiorpics.ImagePreviewWidget imagePreview;
 	
-	private global::Gtk.Label label5;
+	private global::Gtk.Label lblGalleryTab;
 
 	protected virtual void Build ()
 	{
@@ -45,14 +49,18 @@ public partial class MainWindow
 		this.notebook = new global::Gtk.Notebook ();
 		this.notebook.CanFocus = true;
 		this.notebook.Name = "notebook";
-		this.notebook.CurrentPage = 1;
+		this.notebook.CurrentPage = 0;
 		this.notebook.ShowBorder = false;
 		this.notebook.Scrollable = true;
 		// Container child notebook.Gtk.Notebook+NotebookChild
-		this.vbox4 = new global::Gtk.VBox ();
-		this.vbox4.Name = "vbox4";
-		this.vbox4.Spacing = 6;
-		// Container child vbox4.Gtk.Box+BoxChild
+		this.hbox3 = new global::Gtk.HBox ();
+		this.hbox3.Name = "hbox3";
+		this.hbox3.Spacing = 6;
+		// Container child hbox3.Gtk.Box+BoxChild
+		this.vbox5 = new global::Gtk.VBox ();
+		this.vbox5.Name = "vbox5";
+		this.vbox5.Spacing = 6;
+		// Container child vbox5.Gtk.Box+BoxChild
 		this.hbox1 = new global::Gtk.HBox ();
 		this.hbox1.Name = "hbox1";
 		this.hbox1.Spacing = 6;
@@ -78,31 +86,45 @@ public partial class MainWindow
 		w2.Position = 1;
 		w2.Expand = false;
 		w2.Fill = false;
-		this.vbox4.Add (this.hbox1);
-		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.hbox1]));
+		this.vbox5.Add (this.hbox1);
+		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.hbox1]));
 		w3.Position = 0;
 		w3.Expand = false;
 		w3.Fill = false;
-		// Container child vbox4.Gtk.Box+BoxChild
+		// Container child vbox5.Gtk.Box+BoxChild
 		this.forumsGallery = new global::superiorpics.Gallery ();
 		this.forumsGallery.Events = ((global::Gdk.EventMask)(256));
 		this.forumsGallery.Name = "forumsGallery";
-		this.vbox4.Add (this.forumsGallery);
-		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.forumsGallery]));
+		this.vbox5.Add (this.forumsGallery);
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.forumsGallery]));
 		w4.Position = 1;
-		this.notebook.Add (this.vbox4);
+		this.hbox3.Add (this.vbox5);
+		global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.vbox5]));
+		w5.Position = 0;
+		// Container child hbox3.Gtk.Box+BoxChild
+		this.randomLine = new global::superiorpics.RandomCelebs ();
+		this.randomLine.WidthRequest = 200;
+		this.randomLine.Events = ((global::Gdk.EventMask)(256));
+		this.randomLine.Name = "randomLine";
+		this.randomLine.ItemsCount = 4;
+		this.hbox3.Add (this.randomLine);
+		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.randomLine]));
+		w6.Position = 1;
+		w6.Expand = false;
+		w6.Fill = false;
+		this.notebook.Add (this.hbox3);
 		// Notebook tab
 		this.label3 = new global::Gtk.Label ();
 		this.label3.Name = "label3";
 		this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Search");
-		this.notebook.SetTabLabel (this.vbox4, this.label3);
+		this.notebook.SetTabLabel (this.hbox3, this.label3);
 		this.label3.ShowAll ();
 		// Container child notebook.Gtk.Notebook+NotebookChild
-		this.hpaned1 = new global::Gtk.HPaned ();
-		this.hpaned1.CanFocus = true;
-		this.hpaned1.Name = "hpaned1";
-		this.hpaned1.Position = 484;
-		// Container child hpaned1.Gtk.Paned+PanedChild
+		this.galleryPan = new global::Gtk.HPaned ();
+		this.galleryPan.CanFocus = true;
+		this.galleryPan.Name = "galleryPan";
+		this.galleryPan.Position = 484;
+		// Container child galleryPan.Gtk.Paned+PanedChild
 		this.hbox2 = new global::Gtk.HBox ();
 		this.hbox2.Name = "hbox2";
 		this.hbox2.Spacing = 6;
@@ -111,28 +133,29 @@ public partial class MainWindow
 		this.galleryPreview.Events = ((global::Gdk.EventMask)(256));
 		this.galleryPreview.Name = "galleryPreview";
 		this.hbox2.Add (this.galleryPreview);
-		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.galleryPreview]));
-		w6.Position = 0;
-		this.hpaned1.Add (this.hbox2);
-		global::Gtk.Paned.PanedChild w7 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.hbox2]));
-		w7.Resize = false;
-		// Container child hpaned1.Gtk.Paned+PanedChild
+		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.galleryPreview]));
+		w8.Position = 0;
+		this.galleryPan.Add (this.hbox2);
+		global::Gtk.Paned.PanedChild w9 = ((global::Gtk.Paned.PanedChild)(this.galleryPan [this.hbox2]));
+		w9.Resize = false;
+		// Container child galleryPan.Gtk.Paned+PanedChild
 		this.imagePreview = new global::superiorpics.ImagePreviewWidget ();
 		this.imagePreview.Events = ((global::Gdk.EventMask)(256));
 		this.imagePreview.Name = "imagePreview";
-		this.hpaned1.Add (this.imagePreview);
-		this.notebook.Add (this.hpaned1);
-		global::Gtk.Notebook.NotebookChild w9 = ((global::Gtk.Notebook.NotebookChild)(this.notebook [this.hpaned1]));
-		w9.Position = 1;
+		this.galleryPan.Add (this.imagePreview);
+		this.notebook.Add (this.galleryPan);
+		global::Gtk.Notebook.NotebookChild w11 = ((global::Gtk.Notebook.NotebookChild)(this.notebook [this.galleryPan]));
+		w11.Position = 1;
+		w11.TabExpand = true;
 		// Notebook tab
-		this.label5 = new global::Gtk.Label ();
-		this.label5.Name = "label5";
-		this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Gallery");
-		this.notebook.SetTabLabel (this.hpaned1, this.label5);
-		this.label5.ShowAll ();
+		this.lblGalleryTab = new global::Gtk.Label ();
+		this.lblGalleryTab.Name = "lblGalleryTab";
+		this.lblGalleryTab.LabelProp = global::Mono.Unix.Catalog.GetString ("Gallery");
+		this.notebook.SetTabLabel (this.galleryPan, this.lblGalleryTab);
+		this.lblGalleryTab.ShowAll ();
 		this.vbox1.Add (this.notebook);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
-		w10.Position = 0;
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
+		w12.Position = 0;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();

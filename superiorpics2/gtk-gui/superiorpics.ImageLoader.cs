@@ -8,6 +8,8 @@ namespace superiorpics
 		
 		private global::Gtk.VBox vbox1;
 		
+		private global::Gtk.Label label;
+		
 		private global::Gtk.Alignment alignment1;
 		
 		private global::superiorpics.ImageEx image;
@@ -17,8 +19,6 @@ namespace superiorpics
 		private global::Gtk.Alignment alignment3;
 		
 		private global::Gtk.Button btnSave;
-		
-		private global::Gtk.Button button1;
 
 		protected virtual void Build ()
 		{
@@ -34,6 +34,17 @@ namespace superiorpics
 			this.vbox1.Name = "vbox1";
 			this.vbox1.Spacing = 6;
 			// Container child vbox1.Gtk.Box+BoxChild
+			this.label = new global::Gtk.Label ();
+			this.label.Name = "label";
+			this.label.LabelProp = global::Mono.Unix.Catalog.GetString ("...");
+			this.label.UseMarkup = true;
+			this.label.UseUnderline = true;
+			this.vbox1.Add (this.label);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.label]));
+			w1.Position = 0;
+			w1.Expand = false;
+			w1.Fill = false;
+			// Container child vbox1.Gtk.Box+BoxChild
 			this.alignment1 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment1.Name = "alignment1";
 			// Container child alignment1.Gtk.Container+ContainerChild
@@ -41,8 +52,8 @@ namespace superiorpics
 			this.image.Name = "image";
 			this.alignment1.Add (this.image);
 			this.vbox1.Add (this.alignment1);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.alignment1]));
-			w2.Position = 0;
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.alignment1]));
+			w3.Position = 1;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.buttons = new global::Gtk.HBox ();
 			this.buttons.Name = "buttons";
@@ -51,8 +62,8 @@ namespace superiorpics
 			this.alignment3 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment3.Name = "alignment3";
 			this.buttons.Add (this.alignment3);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.buttons [this.alignment3]));
-			w3.Position = 0;
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.buttons [this.alignment3]));
+			w4.Position = 0;
 			// Container child buttons.Gtk.Box+BoxChild
 			this.btnSave = new global::Gtk.Button ();
 			this.btnSave.CanFocus = true;
@@ -61,25 +72,13 @@ namespace superiorpics
 			this.btnSave.UseUnderline = true;
 			this.btnSave.Label = "gtk-save";
 			this.buttons.Add (this.btnSave);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.buttons [this.btnSave]));
-			w4.Position = 1;
-			w4.Expand = false;
-			w4.Fill = false;
-			// Container child buttons.Gtk.Box+BoxChild
-			this.button1 = new global::Gtk.Button ();
-			this.button1.CanFocus = true;
-			this.button1.Name = "button1";
-			this.button1.UseStock = true;
-			this.button1.UseUnderline = true;
-			this.button1.Label = "gtk-remove";
-			this.buttons.Add (this.button1);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.buttons [this.button1]));
-			w5.Position = 2;
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.buttons [this.btnSave]));
+			w5.Position = 1;
 			w5.Expand = false;
 			w5.Fill = false;
 			this.vbox1.Add (this.buttons);
 			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.buttons]));
-			w6.Position = 1;
+			w6.Position = 2;
 			w6.Expand = false;
 			w6.Fill = false;
 			this.eventbox1.Add (this.vbox1);
@@ -87,6 +86,7 @@ namespace superiorpics
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
+			this.label.Hide ();
 			this.Hide ();
 			this.btnSave.Clicked += new global::System.EventHandler (this.OnBtnSaveClicked);
 		}
