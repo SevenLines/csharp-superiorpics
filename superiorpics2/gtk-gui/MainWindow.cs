@@ -27,6 +27,10 @@ public partial class MainWindow
 	
 	private global::Gtk.HBox hbox2;
 	
+	private global::Gtk.VBox vbox6;
+	
+	private global::Gtk.Button btnDownloadAll;
+	
 	private global::superiorpics.Gallery galleryPreview;
 	
 	private global::superiorpics.ImagePreviewWidget imagePreview;
@@ -43,13 +47,12 @@ public partial class MainWindow
 		this.BorderWidth = ((uint)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.vbox1 = new global::Gtk.VBox ();
-		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.notebook = new global::Gtk.Notebook ();
 		this.notebook.CanFocus = true;
 		this.notebook.Name = "notebook";
-		this.notebook.CurrentPage = 0;
+		this.notebook.CurrentPage = 1;
 		this.notebook.ShowBorder = false;
 		this.notebook.Scrollable = true;
 		// Container child notebook.Gtk.Notebook+NotebookChild
@@ -129,24 +132,42 @@ public partial class MainWindow
 		this.hbox2.Name = "hbox2";
 		this.hbox2.Spacing = 6;
 		// Container child hbox2.Gtk.Box+BoxChild
+		this.vbox6 = new global::Gtk.VBox ();
+		this.vbox6.Name = "vbox6";
+		this.vbox6.Spacing = 6;
+		// Container child vbox6.Gtk.Box+BoxChild
+		this.btnDownloadAll = new global::Gtk.Button ();
+		this.btnDownloadAll.CanFocus = true;
+		this.btnDownloadAll.Name = "btnDownloadAll";
+		this.btnDownloadAll.UseUnderline = true;
+		this.btnDownloadAll.Label = global::Mono.Unix.Catalog.GetString ("Download All");
+		this.vbox6.Add (this.btnDownloadAll);
+		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.btnDownloadAll]));
+		w8.Position = 0;
+		w8.Expand = false;
+		w8.Fill = false;
+		// Container child vbox6.Gtk.Box+BoxChild
 		this.galleryPreview = new global::superiorpics.Gallery ();
 		this.galleryPreview.Events = ((global::Gdk.EventMask)(256));
 		this.galleryPreview.Name = "galleryPreview";
-		this.hbox2.Add (this.galleryPreview);
-		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.galleryPreview]));
-		w8.Position = 0;
+		this.vbox6.Add (this.galleryPreview);
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.galleryPreview]));
+		w9.Position = 1;
+		this.hbox2.Add (this.vbox6);
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.vbox6]));
+		w10.Position = 0;
 		this.galleryPan.Add (this.hbox2);
-		global::Gtk.Paned.PanedChild w9 = ((global::Gtk.Paned.PanedChild)(this.galleryPan [this.hbox2]));
-		w9.Resize = false;
+		global::Gtk.Paned.PanedChild w11 = ((global::Gtk.Paned.PanedChild)(this.galleryPan [this.hbox2]));
+		w11.Resize = false;
 		// Container child galleryPan.Gtk.Paned+PanedChild
 		this.imagePreview = new global::superiorpics.ImagePreviewWidget ();
 		this.imagePreview.Events = ((global::Gdk.EventMask)(256));
 		this.imagePreview.Name = "imagePreview";
 		this.galleryPan.Add (this.imagePreview);
 		this.notebook.Add (this.galleryPan);
-		global::Gtk.Notebook.NotebookChild w11 = ((global::Gtk.Notebook.NotebookChild)(this.notebook [this.galleryPan]));
-		w11.Position = 1;
-		w11.TabExpand = true;
+		global::Gtk.Notebook.NotebookChild w13 = ((global::Gtk.Notebook.NotebookChild)(this.notebook [this.galleryPan]));
+		w13.Position = 1;
+		w13.TabExpand = true;
 		// Notebook tab
 		this.lblGalleryTab = new global::Gtk.Label ();
 		this.lblGalleryTab.Name = "lblGalleryTab";
@@ -154,8 +175,8 @@ public partial class MainWindow
 		this.notebook.SetTabLabel (this.galleryPan, this.lblGalleryTab);
 		this.lblGalleryTab.ShowAll ();
 		this.vbox1.Add (this.notebook);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
-		w12.Position = 0;
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
+		w14.Position = 0;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
@@ -168,5 +189,6 @@ public partial class MainWindow
 		this.edtQuery.KeyPressEvent += new global::Gtk.KeyPressEventHandler (this.OnEdtQueryKeyPressEvent);
 		this.edtQuery.Activated += new global::System.EventHandler (this.OnEdtQueryActivated);
 		this.btnFind.Clicked += new global::System.EventHandler (this.OnBtnFindClicked);
+		this.btnDownloadAll.Clicked += new global::System.EventHandler (this.OnBtnDownloadAllClicked);
 	}
 }

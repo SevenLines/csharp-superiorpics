@@ -11,14 +11,6 @@ namespace superiorpics
 		FileChooserDialog saveDialog;
 		public static ILog log = LogManager.GetLogger (typeof(ImagePreviewWidget));
 
-		Hosting[] Hostings = new Hosting[] {
-			new ImageBumHosting (),
-			new ImagevenueHosting (),
-			new HotflickHosting (),
-			new ImageboxHosting (),
-			new RadicalHosting()
-		};
-
 		public ImagePreviewWidget ()
 		{
 			this.Build ();
@@ -64,21 +56,12 @@ namespace superiorpics
 
 		private void LoadImage ()
 		{
-			log.Info ("Try to load: " + url);
-			foreach (var hosting in Hostings) {
-				if (hosting.IsHostingFor (url)) {
-					log.Info ("Hosting is: " + hosting.GetType ().Name);
-					log.Debug ("Start loading");
-					imageloader.StartLoadAnimation ();
-					imageloader.ShowButtons = false;
-					hosting.GetImageUrl (url, (image_src) => {
-						log.Debug ("Successfully get image src: " + image_src);
-						imageloader.Url = image_src;
-					});
-					return;
-				}
-			}
-			log.Warn ("Failed to find hosting loader for: " + url);
+			HostingManager.GetImageSrc (url, () => {
+				imageloader.StartLoadAnimation ();
+				imageloader.ShowButtons = false;
+			}, (image_src) => {
+				imageloader.Url = image_src;
+			});
 		}
 
 		private string url;

@@ -52,6 +52,7 @@ public partial class MainWindow: Gtk.Window
 	private FormSettings settings = new FormSettings ();
 
 	public static ILog log = LogManager.GetLogger (typeof(MainWindow));
+	private string CelebrityName = "";
 
 	Source source = new SuperiorpicsSource ();
 	Gtk.ListStore pagesModel = new Gtk.ListStore (typeof(string), typeof(string));
@@ -82,6 +83,25 @@ public partial class MainWindow: Gtk.Window
 		galleryPreview.OnGalleryItemClick += (GalleryItem item) => {
 			imagePreview.Url = item.url;
 		};
+		galleryPreview.OnSaveClick += (string itemPath, ImageLoader loader) => {
+			HostingManager.GetImage (itemPath, () => {
+				loader.StartLoadAnimation ();
+				loader.ShowButtons = false;
+			}, (byte[] buffer, string image_src) => {
+				var fileName = System.IO.Path.GetFileName (image_src);
+				try {
+					var pixbuf = new Pixbuf (buffer);
+
+					var fileDir = System.IO.Path.Combine (settings.SaveDir, CelebrityName);
+					System.IO.Directory.CreateDirectory (fileDir);
+
+					pixbuf.Save (System.IO.Path.Combine (fileDir, fileName), "jpeg");
+				} catch (Exception e) {
+					log.Error (e);
+				}
+				loader.StopLoadAnimation ();
+			});
+		};
 
 		this.FocusOutEvent += (o, args) => {
 			wndCelebrityList.Hide ();
@@ -89,7 +109,7 @@ public partial class MainWindow: Gtk.Window
 
 		LoadSettings ();
 		randomLine.OnRandomButtonClick = (RandomCelebs obj) => {
-			randomLine.GenRandom(celebrities);
+			randomLine.GenRandom (celebrities);
 		};
 		randomLine.OnItemClick = (CelebrityItemJson obj) => {
 			Init = true;
@@ -178,13 +198,15 @@ public partial class MainWindow: Gtk.Window
 
 	protected void Find ()
 	{
-		var url = String.Format (@"http://www.superiorpics.com/c/{0}/", Query ());
+		var query = Query ();
+		var url = String.Format (@"http://www.superiorpics.com/c/{0}/", query);
 		if (loading)
 			return;
 
 		loading = true;
 
 		getUrl (url, (data) => {
+			CelebrityName = edtQuery.Text.Trim ();
 			var doc = new HtmlDocument ();
 			doc.LoadHtml (data);
 			var root = doc.DocumentNode;
@@ -269,5 +291,10 @@ public partial class MainWindow: Gtk.Window
 		}
 		wndCelebrityList.Hide ();
 		Find ();
+	}
+
+	protected void OnBtnDownloadAllClicked (object sender, EventArgs e)
+	{
+		galleryPreview.SaveAll ();
 	}
 }

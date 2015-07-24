@@ -9,6 +9,11 @@ namespace superiorpics
 		private List<Gtk.Widget> widgets = new List<Gtk.Widget> ();
 		private int maxSize = 210;
 
+		public List<Gtk.Widget> Widgets {
+			get {
+				return widgets;
+			}
+		}
 
 		public ResponsiveGrid ()
 		{

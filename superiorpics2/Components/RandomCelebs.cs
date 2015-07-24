@@ -47,8 +47,9 @@ namespace superiorpics
 			var r = new Random ();
 
 			for (var i = 0; i < imageLoaders.Keys.Count; ++i) {
-				ImageLoader imageLoader = imageLoaders.Keys.ToList() [i];
+				ImageLoader imageLoader = imageLoaders.Keys.ToList () [i];
 				var celeb = celebs.ElementAt (r.Next (celebs.Count));
+				imageLoader.ShowButtons = false;
 				imageLoader.Label = celeb.Name;
 				imageLoader.Url = celeb.Thumb;
 				imageLoaders [imageLoader] = celeb;

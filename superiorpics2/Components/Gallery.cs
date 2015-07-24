@@ -31,7 +31,15 @@ namespace superiorpics
 		public Action<ForumItem> OnForumClick;
 		public Action<GalleryItem> OnGalleryItemClick;
 		public Action<int, string> OnPageChanged;
-		public Action<string> OnSaveClick;
+		public Action<string, ImageLoader> OnSaveClick;
+
+		public void SaveAll ()
+		{
+			foreach (var widget in grid.Widgets) {
+				var imageLoader = (ImageLoader)widget;
+				imageLoader.PerformSaveClick ();
+			}
+		}
 
 		public void SetForums (List<ForumItem> forums)
 		{
@@ -76,8 +84,8 @@ namespace superiorpics
 					});
 				};
 				image.OnSaveClick = (string link) => {
-					if (OnSaveClick!=null) {
-						OnSaveClick(link);
+					if (OnSaveClick != null) {
+						OnSaveClick (link, image);
 					}
 				};
 				grid.AddWidget (image);

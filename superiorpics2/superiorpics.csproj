@@ -117,6 +117,7 @@
     <Compile Include="Tests\NUnitRadicalHosting.cs" />
     <Compile Include="Components\RandomCelebs.cs" />
     <Compile Include="gtk-gui\superiorpics.RandomCelebs.cs" />
+    <Compile Include="Photohostings\HostingManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

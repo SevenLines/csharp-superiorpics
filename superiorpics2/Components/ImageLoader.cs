@@ -49,6 +49,8 @@ namespace superiorpics
 			if (data != null) {
 				pixbuf = new Pixbuf (data);
 				this.image.Pixbuf = pixbuf;
+			} else if (pixbuf != null) {
+				this.image.Pixbuf = pixbuf;
 			}
 		}
 
@@ -99,6 +101,11 @@ namespace superiorpics
 					}
 				});
 			}
+		}
+
+		public void PerformSaveClick()
+		{
+			btnSave.Click ();
 		}
 
 		protected void OnBtnSaveClicked (object sender, EventArgs e)
