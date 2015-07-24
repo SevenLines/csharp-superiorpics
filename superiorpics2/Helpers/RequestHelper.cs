@@ -33,7 +33,6 @@ namespace superiorpics
 		public static async void getRequestAsync (string url, Action<string> done, Action<WebException> fail)
 		{
 			log.Info (url);
-			Console.WriteLine (url);
 
 			var request = HttpWebRequest.Create (url);
 			HttpWebResponse response = null;

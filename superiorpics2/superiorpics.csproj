@@ -104,9 +104,13 @@
     <Compile Include="Photohostings\Hosting.cs" />
     <Compile Include="Photohostings\ImageBumHosting.cs" />
     <Compile Include="Tests\NUnitImageBumHosting.cs" />
-    <Compile Include="Components\FullImagePreview.cs" />
-    <Compile Include="gtk-gui\superiorpics.FullImagePreview.cs" />
     <Compile Include="Components\ImageEx.cs" />
+    <Compile Include="Tests\NUnitImagevenue.cs" />
+    <Compile Include="Photohostings\ImagevenueHosting.cs" />
+    <Compile Include="Photohostings\HotflickHosting.cs" />
+    <Compile Include="Tests\NUnitHotflickHosting.cs" />
+    <Compile Include="gtk-gui\superiorpics.ImagePreviewWidget.cs" />
+    <Compile Include="Components\ImagePreviewWidget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -55,7 +55,6 @@ public partial class MainWindow: Gtk.Window
 
 	List<CelebrityItemJson> celebrities = null;
 	WindowList wndCelebrityList = new WindowList ();
-	FullImagePreview wndFullPreview = new FullImagePreview ();
 
 	private bool Init = false;
 
@@ -78,15 +77,13 @@ public partial class MainWindow: Gtk.Window
 		};
 
 		galleryPreview.OnGalleryItemClick += (GalleryItem item) => {
-			wndFullPreview.Url = item.url;
-			wndFullPreview.Show ();
+			imagePreview.Url = item.url;
 		};
 
 		this.FocusOutEvent += (o, args) => {
 			wndCelebrityList.Hide ();
 		};
 
-		wndFullPreview.Hide ();
 		LoadSettings ();
 
 		Init = false;
@@ -95,14 +92,14 @@ public partial class MainWindow: Gtk.Window
 	protected void LoadSettings ()
 	{
 		settings.Reload ();
-		wndFullPreview.GdkWindow.Move (
-			settings.WindowPreviewSize.Left, 
-			settings.WindowPreviewSize.Top
-		);
-		wndFullPreview.GdkWindow.Resize (
-			settings.WindowPreviewSize.Width, 
-			settings.WindowPreviewSize.Height
-		);
+//		imagePreview.GdkWindow.Move (
+//			settings.WindowPreviewSize.Left, 
+//			settings.WindowPreviewSize.Top
+//		);
+//		imagePreview.GdkWindow.Resize (
+//			settings.WindowPreviewSize.Width, 
+//			settings.WindowPreviewSize.Height
+//		);
 
 		this.GdkWindow.Move (settings.FormSize.Left, settings.FormSize.Top);
 		this.GdkWindow.Resize (settings.FormSize.Width, settings.FormSize.Height);
@@ -117,11 +114,11 @@ public partial class MainWindow: Gtk.Window
 
 		settings.FormSize = new Gdk.Rectangle (x, y, Allocation.Width, Allocation.Height);
 
-		wndFullPreview.GdkWindow.GetOrigin (out x, out y);
-		settings.WindowPreviewSize = new Gdk.Rectangle (
-			x, y, 
-			wndFullPreview.Allocation.Width, wndFullPreview.Allocation.Height
-		);
+//		imagePreview.GdkWindow.GetOrigin (out x, out y);
+//		settings.WindowPreviewSize = new Gdk.Rectangle (
+//			x, y, 
+//			imagePreview.Allocation.Width, imagePreview.Allocation.Height
+//		);
 		settings.Query = edtQuery.Text;
 		settings.Save ();
 	}

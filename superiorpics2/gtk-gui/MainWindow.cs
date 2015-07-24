@@ -19,7 +19,13 @@ public partial class MainWindow
 	
 	private global::Gtk.Label label3;
 	
+	private global::Gtk.HPaned hpaned1;
+	
+	private global::Gtk.HBox hbox2;
+	
 	private global::superiorpics.Gallery galleryPreview;
+	
+	private global::superiorpics.ImagePreviewWidget imagePreview;
 	
 	private global::Gtk.Label label5;
 
@@ -39,7 +45,7 @@ public partial class MainWindow
 		this.notebook = new global::Gtk.Notebook ();
 		this.notebook.CanFocus = true;
 		this.notebook.Name = "notebook";
-		this.notebook.CurrentPage = 0;
+		this.notebook.CurrentPage = 1;
 		this.notebook.ShowBorder = false;
 		this.notebook.Scrollable = true;
 		// Container child notebook.Gtk.Notebook+NotebookChild
@@ -92,26 +98,46 @@ public partial class MainWindow
 		this.notebook.SetTabLabel (this.vbox4, this.label3);
 		this.label3.ShowAll ();
 		// Container child notebook.Gtk.Notebook+NotebookChild
+		this.hpaned1 = new global::Gtk.HPaned ();
+		this.hpaned1.CanFocus = true;
+		this.hpaned1.Name = "hpaned1";
+		this.hpaned1.Position = 484;
+		// Container child hpaned1.Gtk.Paned+PanedChild
+		this.hbox2 = new global::Gtk.HBox ();
+		this.hbox2.Name = "hbox2";
+		this.hbox2.Spacing = 6;
+		// Container child hbox2.Gtk.Box+BoxChild
 		this.galleryPreview = new global::superiorpics.Gallery ();
 		this.galleryPreview.Events = ((global::Gdk.EventMask)(256));
 		this.galleryPreview.Name = "galleryPreview";
-		this.notebook.Add (this.galleryPreview);
-		global::Gtk.Notebook.NotebookChild w6 = ((global::Gtk.Notebook.NotebookChild)(this.notebook [this.galleryPreview]));
-		w6.Position = 1;
+		this.hbox2.Add (this.galleryPreview);
+		global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.galleryPreview]));
+		w6.Position = 0;
+		this.hpaned1.Add (this.hbox2);
+		global::Gtk.Paned.PanedChild w7 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.hbox2]));
+		w7.Resize = false;
+		// Container child hpaned1.Gtk.Paned+PanedChild
+		this.imagePreview = new global::superiorpics.ImagePreviewWidget ();
+		this.imagePreview.Events = ((global::Gdk.EventMask)(256));
+		this.imagePreview.Name = "imagePreview";
+		this.hpaned1.Add (this.imagePreview);
+		this.notebook.Add (this.hpaned1);
+		global::Gtk.Notebook.NotebookChild w9 = ((global::Gtk.Notebook.NotebookChild)(this.notebook [this.hpaned1]));
+		w9.Position = 1;
 		// Notebook tab
 		this.label5 = new global::Gtk.Label ();
 		this.label5.Name = "label5";
 		this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Gallery");
-		this.notebook.SetTabLabel (this.galleryPreview, this.label5);
+		this.notebook.SetTabLabel (this.hpaned1, this.label5);
 		this.label5.ShowAll ();
 		this.vbox1.Add (this.notebook);
-		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
-		w7.Position = 0;
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
+		w10.Position = 0;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 434;
+		this.DefaultWidth = 899;
 		this.DefaultHeight = 520;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
