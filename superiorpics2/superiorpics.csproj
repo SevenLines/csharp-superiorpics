@@ -111,6 +111,8 @@
     <Compile Include="Tests\NUnitHotflickHosting.cs" />
     <Compile Include="gtk-gui\superiorpics.ImagePreviewWidget.cs" />
     <Compile Include="Components\ImagePreviewWidget.cs" />
+    <Compile Include="Photohostings\ImageboxHosting.cs" />
+    <Compile Include="Tests\NUnitImageboxHosting.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

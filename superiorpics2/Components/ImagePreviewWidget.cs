@@ -13,7 +13,9 @@ namespace superiorpics
 
 		Hosting[] Hostings = new Hosting[]{
 			new ImageBumHosting (),
-			new ImagevenueHosting ()
+			new ImagevenueHosting (),
+			new HotflickHosting(),
+			new ImageboxHosting()
 		};
 
 		public ImagePreviewWidget ()
