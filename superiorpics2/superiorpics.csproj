@@ -118,6 +118,9 @@
     <Compile Include="Components\RandomCelebs.cs" />
     <Compile Include="gtk-gui\superiorpics.RandomCelebs.cs" />
     <Compile Include="Photohostings\HostingManager.cs" />
+    <Compile Include="DialogSettings.cs" />
+    <Compile Include="gtk-gui\superiorpics.DialogSettings.cs" />
+    <Compile Include="Photohostings\ImageshackHosting.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

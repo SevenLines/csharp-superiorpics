@@ -16,7 +16,7 @@ using log4net;
 using Gdk;
 
 
-sealed class FormSettings : ApplicationSettingsBase
+public class FormSettings : ApplicationSettingsBase
 {
 	[UserScopedSettingAttribute ()]
 	[DefaultSettingValueAttribute ("")]
@@ -297,4 +297,15 @@ public partial class MainWindow: Gtk.Window
 	{
 		galleryPreview.SaveAll ();
 	}
+
+
+	DialogSettings dialog = new DialogSettings ();
+	protected void OnSettingsActionActivated (object sender, EventArgs e)
+	{
+		dialog.Settings = settings;
+		if (dialog.Run () == (int)Gtk.ResponseType.Ok) {
+			settings.SaveDir = dialog.SaveDir;
+		}
+	}
+
 }

@@ -9,7 +9,26 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/superiorpics2.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="899 520">
+  <widget class="Gtk.Window" id="MainWindow" design-size="680 520">
+    <action-group name="Default">
+      <action id="FileAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">File</property>
+        <property name="ShortLabel" translatable="yes">File</property>
+      </action>
+      <action id="SettingsAction2">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Settings</property>
+        <property name="ShortLabel" translatable="yes">Settings</property>
+        <signal name="Activated" handler="OnSettingsActionActivated" />
+      </action>
+      <action id="SettingsAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Settings</property>
+        <property name="ShortLabel" translatable="yes">Settings</property>
+        <signal name="Activated" handler="OnSettingsActionActivated" />
+      </action>
+    </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">Center</property>
@@ -20,10 +39,25 @@
         <property name="MemberName" />
         <property name="Spacing">6</property>
         <child>
+          <widget class="Gtk.MenuBar" id="menubar1">
+            <property name="MemberName" />
+            <node name="menubar1" type="Menubar">
+              <node type="Menu" action="FileAction" />
+              <node type="Menuitem" action="SettingsAction" />
+            </node>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
           <widget class="Gtk.Notebook" id="notebook">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">1</property>
+            <property name="CurrentPage">0</property>
             <property name="ShowBorder">False</property>
             <property name="Scrollable">True</property>
             <child>
@@ -61,7 +95,6 @@
                             <property name="UseStock">True</property>
                             <property name="Type">StockItem</property>
                             <property name="StockId">gtk-find</property>
-                            <signal name="Clicked" handler="OnBtnFindClicked" />
                             <property name="label">gtk-find</property>
                           </widget>
                           <packing>
@@ -104,7 +137,7 @@
                   </widget>
                   <packing>
                     <property name="Position">1</property>
-                    <property name="AutoSize">False</property>
+                    <property name="AutoSize">True</property>
                     <property name="Expand">False</property>
                     <property name="Fill">False</property>
                   </packing>
@@ -193,7 +226,7 @@
             </child>
           </widget>
           <packing>
-            <property name="Position">0</property>
+            <property name="Position">1</property>
             <property name="AutoSize">True</property>
           </packing>
         </child>
@@ -481,6 +514,131 @@
           <packing>
             <property name="Position">0</property>
             <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Dialog" id="superiorpics.SettingsDialog" design-size="400 300">
+    <property name="MemberName" />
+    <property name="WindowPosition">CenterOnParent</property>
+    <property name="Buttons">2</property>
+    <property name="HelpButton">False</property>
+    <child internal-child="VBox">
+      <widget class="Gtk.VBox" id="dialog1_VBox">
+        <property name="MemberName" />
+        <property name="BorderWidth">2</property>
+        <child>
+          <placeholder />
+        </child>
+      </widget>
+    </child>
+    <child internal-child="ActionArea">
+      <widget class="Gtk.HButtonBox" id="dialog1_ActionArea">
+        <property name="MemberName" />
+        <property name="Spacing">10</property>
+        <property name="BorderWidth">5</property>
+        <property name="Size">2</property>
+        <property name="LayoutStyle">End</property>
+        <child>
+          <widget class="Gtk.Button" id="buttonCancel">
+            <property name="MemberName" />
+            <property name="CanDefault">True</property>
+            <property name="CanFocus">True</property>
+            <property name="UseStock">True</property>
+            <property name="Type">StockItem</property>
+            <property name="StockId">gtk-cancel</property>
+            <property name="ResponseId">-6</property>
+            <property name="label">gtk-cancel</property>
+          </widget>
+          <packing>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="buttonOk">
+            <property name="MemberName" />
+            <property name="CanDefault">True</property>
+            <property name="CanFocus">True</property>
+            <property name="UseStock">True</property>
+            <property name="Type">StockItem</property>
+            <property name="StockId">gtk-ok</property>
+            <property name="ResponseId">-5</property>
+            <property name="label">gtk-ok</property>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Dialog" id="superiorpics.DialogSettings" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <property name="Modal">True</property>
+    <property name="Buttons">2</property>
+    <property name="HelpButton">False</property>
+    <child internal-child="VBox">
+      <widget class="Gtk.VBox" id="dialog1_VBox">
+        <property name="MemberName" />
+        <property name="BorderWidth">2</property>
+        <child>
+          <widget class="Gtk.FileChooserButton" id="saveDir">
+            <property name="MemberName" />
+            <property name="Action">SelectFolder</property>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+    <child internal-child="ActionArea">
+      <widget class="Gtk.HButtonBox" id="dialog1_ActionArea">
+        <property name="MemberName" />
+        <property name="Spacing">10</property>
+        <property name="BorderWidth">5</property>
+        <property name="Size">2</property>
+        <property name="LayoutStyle">End</property>
+        <child>
+          <widget class="Gtk.Button" id="buttonCancel">
+            <property name="MemberName" />
+            <property name="CanDefault">True</property>
+            <property name="CanFocus">True</property>
+            <property name="UseStock">True</property>
+            <property name="Type">StockItem</property>
+            <property name="StockId">gtk-cancel</property>
+            <property name="ResponseId">-6</property>
+            <property name="label">gtk-cancel</property>
+          </widget>
+          <packing>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Button" id="buttonOk">
+            <property name="MemberName" />
+            <property name="CanDefault">True</property>
+            <property name="CanFocus">True</property>
+            <property name="UseStock">True</property>
+            <property name="Type">StockItem</property>
+            <property name="StockId">gtk-ok</property>
+            <property name="ResponseId">-5</property>
+            <property name="label">gtk-ok</property>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
           </packing>
